@@ -7,6 +7,7 @@ import Projects from './components/Projects'
 import IndiaMap from './components/IndiaMap'
 import Fleet from './components/Fleet'
 import About from './components/About'
+import Clients from './components/Clients'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { company, nav } from './data/site'
@@ -46,6 +47,7 @@ export default function App() {
         <Projects onOpenService={openServiceWith} />
         <IndiaMap focusProject={focusProject} onOpenService={openServiceWith} />
         <Fleet onOpenService={openServiceWith} />
+        <Clients />
         <Contact />
       </main>
       <Footer />

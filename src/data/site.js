@@ -350,3 +350,14 @@ export const nav = [
   { id: 'fleet', label: 'Fleet' },
   { id: 'contact', label: 'Contact' },
 ]
+
+// --- Clients -----------------------------------------------------------
+// Organisations named in the project records above. Drop a logo file at the
+// given path and it replaces the wordmark; until then the name renders as text.
+export const clients = [
+  { name: 'IOCL', img: '/img/clients/iocl.png' },
+  { name: 'Kochi Port', img: '/img/clients/kochi-port.png' },
+  { name: 'Mumbai Port Trust', img: '/img/clients/mbpt.png' },
+  { name: 'Sapura', img: '/img/clients/sapura.png' },
+  { name: 'APM Terminals', img: '/img/clients/apm-terminals.png' },
+]

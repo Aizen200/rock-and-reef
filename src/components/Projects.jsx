@@ -1,26 +1,67 @@
+import { useRef } from 'react'
 import { projects, services } from '../data/site'
+import { scrollToId } from '../hooks'
 
 const serviceName = (id) => services.find((s) => s.id === id)?.name || id
 
 export default function Projects({ onOpenService }) {
+  const trackRef = useRef(null)
+
+  // Advance by exactly one card, whatever the current breakpoint's card width is.
+  const scrollByCard = (dir) => {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.firstElementChild
+    const step = card ? card.getBoundingClientRect().width + 20 : track.clientWidth
+    track.scrollBy({ left: dir * step, behavior: 'smooth' })
+  }
+
   return (
     <section id="projects" className="pad-y">
       <div className="wrap">
-        <div className="section-head reveal">
-          <div>
-            <p className="eyebrow">Proof of work</p>
+        <div className="proj-head reveal">
+          <div className="proj-head-copy">
             <h2 className="section-title">Featured Projects</h2>
-            <p className="section-lede">
-              Ports, terminals, offshore corridors and Himalayan reservoirs, each delivered with our
-              own fleet and our own crews.
-            </p>
+            <a
+              className="proj-seeall"
+              href="#map"
+              onClick={(e) => {
+                e.preventDefault()
+                scrollToId('map')
+              }}
+            >
+              See all
+            </a>
+          </div>
+
+          <div className="proj-nav">
+            <button
+              className="proj-arrow"
+              onClick={() => scrollByCard(-1)}
+              aria-label="Previous projects"
+            >
+              <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true">
+                <path d="M18 6H2M6 1L1 6l5 5" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+            </button>
+            <button
+              className="proj-arrow next"
+              onClick={() => scrollByCard(1)}
+              aria-label="Next projects"
+            >
+              <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true">
+                <path d="M0 6h16M12 1l5 5-5 5" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+            </button>
           </div>
         </div>
 
-        <div className="proj-grid reveal">
-          {projects.map((p) => (
-            <ProjectTile key={p.id} project={p} onOpenService={onOpenService} />
-          ))}
+        <div className="proj-carousel reveal">
+          <div className="proj-track" ref={trackRef}>
+            {projects.map((p) => (
+              <ProjectTile key={p.id} project={p} onOpenService={onOpenService} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -48,40 +89,44 @@ function ProjectTile({ project: p, onOpenService }) {
         <img className="proj-img" src={p.img} alt="" loading="lazy" decoding="async" />
 
         <span className="proj-face">
-          {p.year !== '' && <span className="proj-year">{p.year}</span>}
+          <span className="proj-rule" aria-hidden="true" />
           <span className="proj-name">{p.title}</span>
-          <span className="proj-place">{p.place}</span>
         </span>
 
         <span className="proj-reveal">
-          <span className="proj-place">{p.place}</span>
-          <span className="proj-name">{p.title}</span>
-          <span className="proj-summary">{p.blurb}</span>
-          <span className="proj-metrics">
-            {p.metrics.slice(0, 2).map((m) => (
-              <span key={m.v}>
-                {m.k}
-                <small>{m.v}</small>
-              </span>
-            ))}
-          </span>
-          <span className="proj-more">
-            {p.services.map(serviceName).join(' · ')}
-            <span className="proj-more-link">
-              Learn more <Arrow />
+          <span className="proj-facts">
+            <span className="proj-purpose">
+              <b>Purpose:</b>
+              <span>{p.blurb}</span>
             </span>
+            <span className="proj-row">
+              <b>Location:</b>
+              <span>{p.place}</span>
+            </span>
+            <span className="proj-row">
+              <b>Scope:</b>
+              <span>{p.metrics[0]?.k}</span>
+            </span>
+            <span className="proj-row">
+              <b>Client:</b>
+              <span>{p.client}</span>
+            </span>
+            {p.year !== '' && (
+              <span className="proj-row">
+                <b>Year:</b>
+                <span>{p.year}</span>
+              </span>
+            )}
+          </span>
+
+          <span className="proj-foot">
+            <span className="proj-rule" aria-hidden="true" />
+            <span className="proj-name">{p.title}</span>
+            <span className="proj-more-link">Explore Project</span>
           </span>
         </span>
       </button>
     </article>
-  )
-}
-
-function Arrow() {
-  return (
-    <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
-      <path d="M0 5h14M10 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
   )
 }
 
