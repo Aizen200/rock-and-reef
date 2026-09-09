@@ -12,9 +12,12 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { company, nav } from './data/site'
 import { useReveal, useActiveSection, scrollToId } from './hooks'
+import ServicesPage from './components/ServicesPage'
+import { useRoute } from './router'
 
 export default function App() {
-  useReveal()
+  const route = useRoute()
+  useReveal(route)
   const ids = useMemo(() => nav.map((n) => n.id), [])
   const active = useActiveSection(ids)
 
@@ -31,6 +34,17 @@ export default function App() {
     setFocusProject(projectId)
     scrollToId('map')
   }, [])
+
+  if (route === '/services') {
+    return (
+      <>
+        <Header active="services" solid />
+        <ServicesPage />
+        <Footer />
+        <WhatsApp />
+      </>
+    )
+  }
 
   return (
     <>
@@ -52,17 +66,7 @@ export default function App() {
       </main>
       <Footer />
 
-      <a
-        className="wa"
-        href={company.whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-      >
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.36-.5.04-.98.22-3.3-.69-2.78-1.1-4.55-3.94-4.69-4.12-.14-.18-1.12-1.49-1.12-2.85s.71-2.02.96-2.3c.25-.28.55-.35.73-.35.18 0 .37 0 .53.01.17.01.4-.06.62.48.24.57.8 1.98.87 2.13.07.14.12.31.02.5-.09.18-.14.3-.28.46-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.93 1.93 1.22 2.21 1.36.28.14.44.12.6-.07.17-.19.7-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.6.75 1.87.89.28.14.46.21.53.32.07.12.07.66-.17 1.34z" />
-        </svg>
-      </a>
+      <WhatsApp />
 
       <script
         type="application/ld+json"
@@ -88,5 +92,21 @@ export default function App() {
         }}
       />
     </>
+  )
+}
+
+function WhatsApp() {
+  return (
+        <a
+          className="wa"
+          href={company.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+        >
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.36-.5.04-.98.22-3.3-.69-2.78-1.1-4.55-3.94-4.69-4.12-.14-.18-1.12-1.49-1.12-2.85s.71-2.02.96-2.3c.25-.28.55-.35.73-.35.18 0 .37 0 .53.01.17.01.4-.06.62.48.24.57.8 1.98.87 2.13.07.14.12.31.02.5-.09.18-.14.3-.28.46-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.93 1.93 1.22 2.21 1.36.28.14.44.12.6-.07.17-.19.7-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.6.75 1.87.89.28.14.46.21.53.32.07.12.07.66-.17 1.34z" />
+          </svg>
+        </a>
   )
 }

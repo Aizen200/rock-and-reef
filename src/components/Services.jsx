@@ -23,16 +23,6 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
     onClearOpen?.()
   }, [openService, onClearOpen])
 
-  const toggle = (id) => {
-    if (openId === id) {
-      setOpenId(null)
-      setCaseId(null)
-    } else {
-      setOpenId(id)
-      setCaseId(null)
-    }
-  }
-
   return (
     <section id="services" className="section-dark pad-y">
       <div className="wrap">
@@ -42,8 +32,8 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
             <h2 className="section-title">Our Services</h2>
           </div>
           <p className="svc-head-lede">
-            Nine marine capabilities, one integrated team. Open any service to see a project we
-            delivered under it, and the exact vessels that did the work.
+            Nine marine capabilities, one integrated team, from capital dredging and trenching to
+            survey, breakwater construction and shipbuilding.
           </p>
           <a
             className="btn btn-primary svc-head-cta"
@@ -65,14 +55,9 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
                 <li className={`svc-row ${open ? 'open' : ''} ${previewId === s.id ? 'showing' : ''}`} key={s.id}>
                   <button
                     className="svc-row-head"
-                    aria-expanded={open}
-                    aria-controls={open ? `panel-${s.id}` : undefined}
                     onMouseEnter={() => setPreviewId(s.id)}
                     onFocus={() => setPreviewId(s.id)}
-                    onClick={() => {
-                      setPreviewId(s.id)
-                      toggle(s.id)
-                    }}
+                    onClick={() => setPreviewId(s.id)}
                   >
                     <span className="svc-n">{String(i + 1).padStart(2, '0')}</span>
                     <span className="svc-name">{s.name}</span>

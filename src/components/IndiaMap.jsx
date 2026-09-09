@@ -77,7 +77,7 @@ export default function IndiaMap({ focusProject, onOpenService }) {
   const { k, tx, ty } = frame(framed)
 
   return (
-    <section id="map" className="section-sand pad-y">
+    <section id="map" className="section-dark map-dark pad-y">
       <div className="wrap map-grid reveal">
         <div className="map-list">
           {REGIONS.map(({ region, items }) => {
@@ -166,8 +166,8 @@ export default function IndiaMap({ focusProject, onOpenService }) {
           >
             <defs>
               <linearGradient id="landFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#dfe7e6" />
-                <stop offset="100%" stopColor="#cfdcdd" />
+                <stop offset="0%" stopColor="#173445" />
+                <stop offset="100%" stopColor="#0f2836" />
               </linearGradient>
             </defs>
 

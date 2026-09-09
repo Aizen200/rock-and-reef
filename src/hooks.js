@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 
 /** Fades sections in as they enter the viewport; static when reduced motion is requested. */
-export function useReveal() {
+export function useReveal(key) {
   useEffect(() => {
     const nodes = document.querySelectorAll('.reveal')
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -21,7 +21,7 @@ export function useReveal() {
     )
     nodes.forEach((n) => io.observe(n))
     return () => io.disconnect()
-  }, [])
+  }, [key])
 }
 
 /** Tracks which anchored section is currently in view, for nav highlighting. */

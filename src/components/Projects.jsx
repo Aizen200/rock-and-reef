@@ -121,7 +121,6 @@ function ProjectTile({ project: p, onOpenService }) {
 
           <span className="proj-foot">
             <span className="proj-rule" aria-hidden="true" />
-            <span className="proj-name">{p.title}</span>
             <span className="proj-more-link">Explore Project</span>
           </span>
         </span>

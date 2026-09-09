@@ -70,11 +70,16 @@ export default function Contact() {
           {sent ? (
             <div className="form-ok">
               Thanks, your email client should have opened with the enquiry ready to send. If it
-              didn&apos;t, write to <a href={`mailto:${company.email}`} style={{ color: 'var(--amber)' }}>{company.email}</a> or
+              didn&apos;t, write to <a href={`mailto:${company.email}`}>{company.email}</a> or
               call {company.phone}.
             </div>
           ) : (
             <form onSubmit={onSubmit}>
+              <div className="form-head">
+                <h3>Request a quote</h3>
+                <p>Two minutes now saves a week of back and forth.</p>
+              </div>
+
               <div className="two">
                 <div className="field">
                   <label htmlFor="name">Name</label>
@@ -114,10 +119,12 @@ export default function Contact() {
                 <label htmlFor="message">Scope &amp; constraints</label>
                 <textarea id="message" name="message" rows="5" placeholder="Volumes, depths, geology, programme dates…" />
               </div>
-              <button className="btn btn-primary" type="submit">Send Enquiry</button>
-              <p className="form-note">
-                We reply to tender and procurement enquiries within one working day.
-              </p>
+              <div className="form-foot">
+                <button className="btn btn-primary" type="submit">Send Enquiry</button>
+                <p className="form-note">
+                  We reply to tender and procurement enquiries within one working day.
+                </p>
+              </div>
             </form>
           )}
         </div>

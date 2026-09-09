@@ -29,48 +29,64 @@ export const fleet = {
     id: 'backhoe',
     name: 'Backhoe Dredgers',
     img: '/img/Backchoe-Dredgers.png',
+    tier: 'dredger',
+    role: 'Rock and hard strata',
     spec: 'Pontoon mounted excavators for hard, compacted and rocky seabed, the core of our capital dredging capability.',
   },
   csd: {
     id: 'csd',
     name: 'Cutter Suction Dredgers',
     img: '/img/cutter-suction-dredgers.png',
+    tier: 'dredger',
+    role: 'Reservoirs and channels',
     spec: 'Continuous cutting and pumping of sediment through floating pipeline, ideal for reservoirs, channels and reclamation.',
   },
   grab: {
     id: 'grab',
     name: 'Grab Dredgers',
     img: '/img/Grab-Dredgers-.png',
+    tier: 'dredger',
+    role: 'Berths and quay walls',
     spec: 'Precise deep reach digging alongside berths, quay walls and confined harbour pockets.',
   },
   barge: {
     id: 'barge',
     name: 'Hopper Barges',
     img: '/img/Barge.png',
-    spec: 'Six self propelled hopper barges, Rock 1, Rock 9, Rock 10, Rock 12, Phoenix, Reef 1.',
+    tier: 'support',
+    role: 'Sediment haulage',
+    spec: 'Self propelled hoppers carrying dredged material to the designated disposal ground.',
+    units: ['Rock 1', 'Rock 9', 'Rock 10', 'Rock 12', 'Phoenix', 'Reef 1'],
   },
   tug: {
     id: 'tug',
     name: 'Tugs',
     img: '/img/tug.png',
-    spec: 'Three tugs, Rockstar, Premrath and Porunai, for towage, positioning and station keeping.',
+    tier: 'support',
+    role: 'Towage and positioning',
+    spec: 'Towage, positioning and station keeping for the dredging spread.',
+    units: ['Rockstar', 'Premrath', 'Porunai'],
   },
   launch: {
     id: 'launch',
     name: 'Motor Launch',
     img: '/img/Motor-Lauch.png',
+    tier: 'support',
+    role: 'Crew transfer',
     spec: 'Crew transfer and site supervision across active working areas.',
   },
   survey: {
     id: 'survey',
     name: 'Survey Boat',
     img: '/img/survey-boat.png',
+    tier: 'support',
+    role: 'Sounding and survey',
     spec: 'Single and multi beam hydrographic survey platform for pre, progress and post dredge sounding.',
   },
 }
 
 export const fleetOverview =
-  'Rock & Reef Fleet offers a lot of variety in terms of dredgers. This helps us execute projects of different magnitudes and difficulties. That being said, the core of Rock & Reef is capital dredging and our fleet backs that up. You will find a wide range of Grab and Backhoe dredgers. Over the years, we have tailored and customised our dredgers to accomplish sometimes even unimaginable tasks.'
+  'A fleet built around capital dredging, tailored and customised in house to take on the tasks others call impossible.'
 
 // --- Projects ----------------------------------------------------------
 export const projects = [

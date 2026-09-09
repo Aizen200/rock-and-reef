@@ -1,19 +1,26 @@
 import { useState } from 'react'
 import { company, nav } from '../data/site'
 import { useScrolled, scrollToId } from '../hooks'
+import { navigate } from '../router'
 
-export default function Header({ active }) {
+export default function Header({ active, solid = false }) {
   const scrolled = useScrolled(60)
   const [open, setOpen] = useState(false)
 
+  // Services has its own page; every other nav item is a section on the home page.
   const go = (e, id) => {
     e.preventDefault()
     setOpen(false)
-    scrollToId(id)
+    if (id === 'services') {
+      navigate('/services')
+      return
+    }
+    if (window.location.pathname === '/') scrollToId(id)
+    else navigate('/', { hash: id === 'top' ? undefined : id })
   }
 
   return (
-    <header className={`header ${scrolled || open ? 'solid' : ''}`}>
+    <header className={`header ${solid || scrolled || open ? 'solid' : ''}`}>
       <div className="wrap header-top">
         <a className="logo" href="#top" onClick={(e) => go(e, 'top')} aria-label="Rock and Reef home">
           <img src="/img/Main-logo.png" alt="Rock and Reef Dredging" width="140" height="40" />
@@ -26,7 +33,7 @@ export default function Header({ active }) {
           {nav.map((n) => (
             <a
               key={n.id}
-              href={`#${n.id}`}
+              href={n.id === 'services' ? '/services' : `#${n.id}`}
               className={active === n.id ? 'active' : ''}
               onClick={(e) => go(e, n.id)}
             >
@@ -55,7 +62,11 @@ export default function Header({ active }) {
       {open && (
         <div className="mobile-nav">
           {nav.map((n) => (
-            <a key={n.id} href={`#${n.id}`} onClick={(e) => go(e, n.id)}>
+            <a
+              key={n.id}
+              href={n.id === 'services' ? '/services' : `#${n.id}`}
+              onClick={(e) => go(e, n.id)}
+            >
               {n.label}
             </a>
           ))}
