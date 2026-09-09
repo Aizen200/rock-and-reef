@@ -1,11 +1,24 @@
-import { useState } from 'react'
 import { company, differentiators } from '../data/site'
 import { scrollToId } from '../hooks'
 
-export default function About() {
-  const [advIndex, setAdvIndex] = useState(0)
-  const active = differentiators[advIndex]
+/** One outline mark per advantage, in the order they appear in the data. */
+const ADV_PATHS = [
+  'M3 20h18M6 20V9l6-4 6 4v11M10 20v-5h4v5',            // execution / port
+  'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5',                 // layered experience
+  'M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2.1 2.1M15.6 15.6l2.1 2.1M15.6 8.4l2.1-2.1M6.3 17.7l2.1-2.1M12 9a3 3 0 100 6 3 3 0 000-6', // innovation
+  'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.6-6 8-6s8 2 8 6', // client
+  'M12 21c0-6 3-11 8-13-1 7-4 11-8 13zM12 21C12 15 9 10 4 8c1 7 4 11 8 13z', // environment
+]
 
+function AdvIcon({ index }) {
+  return (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d={ADV_PATHS[index % ADV_PATHS.length]} />
+    </svg>
+  )
+}
+
+export default function About() {
   return (
     <>
       <section id="about" className="pad-y">
@@ -50,93 +63,31 @@ export default function About() {
       <section id="sustainability" className="pad-y section-sand">
         <div className="wrap">
           <div className="adv-head reveal">
-            <div className="adv-head-l">
-              <p className="eyebrow">Our advantage</p>
-              <h2 className="section-title">Delivering more than dredging</h2>
-            </div>
-            <div className="adv-head-r">
-              <p>
-                Combining experience, innovation and a client first approach, we deliver dredging
-                solutions that create lasting value.
-              </p>
-              <a
-                className="adv-link"
-                href="#about"
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToId('about')
-                }}
-              >
-                About Us
-                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
-                  <path d="M0 5h14M10 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
-                </svg>
-              </a>
-            </div>
+            <p className="eyebrow">Our advantage</p>
+            <h2 className="section-title">Delivering more than dredging</h2>
+            <p className="adv-sub">
+              Combining experience, innovation and a client first approach, we deliver dredging
+              solutions that create lasting value.
+            </p>
           </div>
 
-          <div className="adv-show reveal">
-            <div className="adv-list" role="tablist" aria-label="What sets us apart">
-              {differentiators.map((d, i) => (
-                <button
-                  key={d.title}
-                  role="tab"
-                  aria-selected={i === advIndex}
-                  className={`adv-item ${i === advIndex ? 'active' : ''}`}
-                  onClick={() => setAdvIndex(i)}
-                  onMouseEnter={() => setAdvIndex(i)}
-                >
-                  <span className="adv-num">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="adv-ic" aria-hidden="true">{ADV_ICONS[i % ADV_ICONS.length]}</span>
-                  <span className="adv-name">{d.title}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="adv-panel">
-              <figure className="adv-figure">
-                <img
-                  key={active.img}
-                  src={active.img}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <div className="adv-copy" key={active.title}>
-                <h3>{active.title}</h3>
-                <p>{active.text}</p>
-              </div>
-            </div>
-          </div>
+          <ul className="adv-cards reveal">
+            {differentiators.map((d, i) => (
+              <li className="adv-card" key={d.title}>
+                <img src={d.img} alt="" loading="lazy" decoding="async" />
+                <div className="adv-card-body">
+                  <span className="adv-card-icon" aria-hidden="true">
+                    <AdvIcon index={i} />
+                  </span>
+                  <h3>{d.title}</h3>
+                  <p>{d.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
 
         </div>
       </section>
     </>
   )
 }
-
-const ADV_ICONS = [
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" key="a">
-    <path d="M3 17c1.5 1 3 1 4.5 0S10.5 16 12 17s3 1 4.5 0S19.5 16 21 17" />
-    <path d="M5 13V7h14v6M9 7V4h6v3" />
-  </svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" key="b">
-    <path d="M4 12a8 8 0 0116 0M3 12h18" />
-    <circle cx="12" cy="16" r="2.6" />
-    <path d="M7.5 21c0-1.9 2-3 4.5-3s4.5 1.1 4.5 3" />
-  </svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" key="c">
-    <circle cx="12" cy="12" r="3" />
-    <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" />
-  </svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" key="d">
-    <circle cx="9" cy="9" r="3" />
-    <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
-    <path d="M16 7a3 3 0 010 6M17.5 19c0-2-.7-3.5-2-4.5" />
-  </svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" key="e">
-    <path d="M20 4C10 4 4 9 4 16c0 2 1 4 1 4s6-1 9-4c3-3 6-7 6-12z" />
-    <path d="M5 20c3-6 7-10 12-13" />
-  </svg>,
-]

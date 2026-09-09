@@ -352,12 +352,24 @@ export const nav = [
 ]
 
 // --- Clients -----------------------------------------------------------
-// Organisations named in the project records above. Drop a logo file at the
-// given path and it replaces the wordmark; until then the name renders as text.
+// Logo files live in /public/img/clients. A missing file renders as an empty
+// plate, never a broken img.
 export const clients = [
-  { name: 'IOCL', img: '/img/clients/iocl.png' },
-  { name: 'Kochi Port', img: '/img/clients/kochi-port.png' },
-  { name: 'Mumbai Port Trust', img: '/img/clients/mbpt.png' },
-  { name: 'Sapura', img: '/img/clients/sapura.png' },
-  { name: 'APM Terminals', img: '/img/clients/apm-terminals.png' },
+  { name: 'Larsen & Toubro', img: '/img/clients/landt.png' },
+  { name: 'Tata Projects', img: '/img/clients/tata-projects.png' },
+  { name: 'Adani Ports', img: '/img/clients/adani-ports.png' },
+  { name: 'Navyuga Engineering', img: '/img/clients/navyuga.png' },
+  { name: 'IGPL', img: '/img/clients/igpl.png' },
+  { name: 'Cemindia', img: '/img/clients/cemindia.png' },
+  { name: 'Flowline Systems', img: '/img/clients/flowline-systems.png' },
+  { name: 'Comacoe', img: '/img/clients/comacoe.png' },
+  { name: 'BSA Tugs', img: '/img/clients/bsa-tugs.png' },
+  { name: 'Twilight Shipping', img: '/img/clients/twilight-shipping.png' },
+  { name: 'C-Track Geosciences and Geoinformatics', img: '/img/clients/c-track-geosciences-and-geoinformatics.png' },
+  { name: 'Creative Construction', img: '/img/clients/creative-construction.png' },
+  { name: 'Paresh Constructions and Foundations', img: '/img/clients/paresh-constructions-and-foundations.png' },
+  { name: 'Vishwakarma Mechanical Works', img: '/img/clients/vishwakarma-mechanical-works.png' },
+  { name: 'MERC', img: '/img/clients/merc.png' },
+  { name: 'Bhadrakali', img: '/img/clients/bhadrakali.png' },
+  { name: 'Kink Revealers', img: '/img/clients/kink-revealers.png' },
 ]

@@ -273,11 +273,14 @@ section { scroll-margin-top: 78px; }
 .intro-copy .section-title { margin-top: 18px; }
 
 /* Rounded label above the heading. */
+/* Matches the section eyebrows used elsewhere: accent rule, no box. */
 .pill {
-  display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border-radius: 999px;
-  background: rgba(232,161,58,.16); color: var(--amber-dk);
-  font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-size: 13px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 10px; color: var(--accent-dk);
+  font-family: var(--display); text-transform: uppercase; letter-spacing: .18em; font-size: 13px; font-weight: 600;
+  margin-bottom: 14px;
 }
+.pill::before { content: ''; width: 28px; height: 2px; background: var(--accent); flex: none; }
+.pill svg { display: none; }
 .intro-lede { color: var(--steel); font-size: clamp(15.5px, 1.3vw, 17px); line-height: 1.75; margin: 20px 0 0; max-width: 58ch; }
 
 .intro-points { list-style: none; padding: 0; margin: 26px 0 30px; display: grid; gap: 15px; }
@@ -311,67 +314,54 @@ section { scroll-margin-top: 78px; }
 .svc-head-cta { align-self: center; gap: 10px; }
 @media (max-width: 980px) { .svc-head { grid-template-columns: 1fr; } .svc-head-cta { justify-self: start; } }
 
-.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.4vw, 18px); margin-bottom: clamp(12px, 1.4vw, 18px); }
-@media (max-width: 980px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 620px) { .svc-grid { grid-template-columns: 1fr; } }
+/* Services: a compact numbered list on the left driving one large preview on
+   the right. Hover or focus swaps the preview; clicking opens the case study. */
+.svc-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); gap: clamp(28px, 4vw, 60px); align-items: start; }
+@media (max-width: 900px) { .svc-split { grid-template-columns: 1fr; } }
 
-/* Photo tile: the image is the card, copy sits over a gradient scrim and the
-   blurb rises into view on hover / focus / open. */
-.svc {
-  position: relative; padding: 0; border: 0; cursor: pointer; text-align: left; display: block;
-  overflow: hidden; background: var(--ink-2); aspect-ratio: 4 / 3; min-height: 300px;
+.svc-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); counter-reset: none; }
+.svc-row { border-bottom: 1px solid var(--line); }
+.svc-row-head {
+  width: 100%; background: none; border: 0; cursor: pointer; text-align: left;
+  display: grid; grid-template-columns: 52px minmax(0, 1fr) 38px; align-items: center; gap: 14px;
+  padding: clamp(13px, 1.5vw, 19px) 6px;
+  transition: padding-left .3s, background .3s;
 }
-.svc-media { position: absolute; inset: 0; }
-.svc-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
-.svc:hover .svc-media img, .svc:focus-visible .svc-media img, .svc[aria-expanded='true'] .svc-media img { transform: scale(1.07); }
-.svc-media::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(7,23,35,.15) 0%, rgba(7,23,35,.55) 45%, rgba(7,23,35,.94) 100%);
-  transition: background .35s;
-}
-.svc:hover .svc-media::after, .svc:focus-visible .svc-media::after, .svc[aria-expanded='true'] .svc-media::after {
-  background: linear-gradient(180deg, rgba(7,23,35,.3) 0%, rgba(7,23,35,.72) 45%, rgba(7,23,35,.97) 100%);
-}
+.svc-row.showing .svc-row-head, .svc-row-head:hover { padding-left: 18px; }
 
-.svc-body {
-  position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end;
-  height: 100%; padding: 26px 24px 24px;
+.svc-n { font-family: var(--display); font-size: 14px; letter-spacing: .16em; color: var(--steel); transition: color .25s; }
+.svc-row.showing .svc-n { color: var(--accent-dk); }
+.svc-name {
+  font-family: var(--display); font-weight: 700; text-transform: uppercase; line-height: 1.1;
+  font-size: clamp(19px, 1.75vw, 25px); color: var(--steel); transition: color .25s;
 }
-.svc-num { font-family: var(--display); font-size: 15px; letter-spacing: .16em; color: var(--amber); display: flex; align-items: center; gap: 12px; }
-.svc-num i { display: block; width: 30px; height: 1px; background: rgba(var(--accent-rgb), .5); }
-.svc h3 { font-size: clamp(20px, 1.7vw, 25px); text-transform: uppercase; color: #fff; margin: 12px 0 0; }
-
-/* Collapsed to nothing, then opened by a grid-row transition so the height
-   animates without hard-coding a blurb length. */
-.svc-reveal {
-  display: grid; grid-template-rows: 0fr; opacity: 0;
-  transition: grid-template-rows .4s ease, opacity .3s ease;
-}
-.svc-reveal > * { overflow: hidden; }
-.svc:hover .svc-reveal, .svc:focus-visible .svc-reveal, .svc[aria-expanded='true'] .svc-reveal {
-  grid-template-rows: 1fr; opacity: 1;
-}
-.svc-reveal p { color: rgba(255,255,255,.74); font-size: 14px; margin: 12px 0 0; }
+.svc-row.showing .svc-name, .svc-row.open .svc-name { color: var(--ink); }
 .svc-go {
-  margin-top: 16px; width: 40px; height: 40px; border: 1px solid var(--amber); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; color: var(--amber);
-  transition: background .25s, color .25s;
+  width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%;
+  display: grid; place-items: center; color: var(--steel); justify-self: end;
+  transition: background .25s, color .25s, border-color .25s, transform .3s;
 }
-.svc:hover .svc-go { background: var(--amber); color: var(--ink); }
-.svc[aria-expanded='true'] .svc-go { background: var(--amber); color: var(--ink); transform: rotate(90deg); }
+.svc-row.showing .svc-go { border-color: var(--accent); color: var(--accent-dk); }
+.svc-row.open .svc-go { background: var(--accent); border-color: var(--accent); color: #16202a; transform: rotate(90deg); }
 
-/* Amber keyline marks the open tile and ties it to the panel below. */
-.svc::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; z-index: 3;
-  background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform .35s;
+.svc-preview { margin: 0; position: sticky; top: 116px; }
+.svc-preview-stack { display: block; position: relative; aspect-ratio: 4 / 3.1; overflow: hidden; background: var(--ink-2); }
+.svc-preview-stack img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transform: scale(1.04); transition: opacity .55s ease, transform .9s ease;
 }
-.svc:hover::after, .svc:focus-visible::after, .svc[aria-expanded='true']::after { transform: scaleX(1); }
-
-/* Touch devices have no hover, so the blurb is simply always visible. */
-@media (hover: none) {
-  .svc-reveal { grid-template-rows: 1fr; opacity: 1; }
+.svc-preview-stack img.on { opacity: 1; transform: none; }
+.svc-preview-stack::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 38%, rgba(7,23,35,.86) 100%);
 }
-@media (max-width: 620px) { .svc { aspect-ratio: auto; min-height: 340px; } }
+.svc-preview figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 26px clamp(20px, 2.4vw, 32px);
+  display: grid; gap: 8px;
+}
+.svc-preview .k { font-family: var(--display); text-transform: uppercase; font-size: clamp(21px, 2vw, 28px); color: #fff; line-height: 1.1; }
+.svc-preview .d { font-size: 14px; color: rgba(255,255,255,.76); max-width: 46ch; }
+@media (max-width: 900px) { .svc-preview { position: static; order: -1; margin-bottom: 24px; } }
 
 /* Expanding panel: service → project → fleet */
 .panel { background: var(--ink-2); border: 1px solid var(--line-dk); border-top: 3px solid var(--amber); margin-top: -1px; }
@@ -625,56 +615,112 @@ section { scroll-margin-top: 78px; }
 .fleet-used button:hover { background: var(--accent); border-color: var(--accent); color: #08202b; }
 
 /* ---------- Why / sustainability ---------- */
-.adv-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: clamp(24px, 5vw, 56px); align-items: start; margin-bottom: clamp(32px, 5vw, 52px); }
-.adv-head .eyebrow { display: flex; align-items: center; gap: 14px; }
-.adv-head .eyebrow::after { content: ''; flex: 1; max-width: 150px; height: 1px; background: var(--line-dk); opacity: .35; }
-.adv-head-r { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); font-size: 15.5px; color: var(--steel); line-height: 1.65; }
-.adv-head-r p { margin: 0; }
-.adv-link {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding-bottom: 5px;
-  font-family: var(--display); text-transform: uppercase; letter-spacing: .12em; font-size: 14px;
-  font-weight: 600; color: var(--ink); border-bottom: 2px solid var(--amber);
-}
-.adv-link svg { transition: transform .25s; }
-.adv-link:hover { color: var(--amber-dk); }
-.adv-link:hover svg { transform: translateX(5px); }
-@media (max-width: 900px) { .adv-head { grid-template-columns: 1fr; } .adv-head-r { padding-left: 0; border-left: 0; } }
+/* Centred intro over a row of tall image cards, each with its own icon and copy. */
+.adv-head { text-align: center; max-width: 760px; margin: 0 auto clamp(34px, 5vw, 56px); }
+.adv-head .eyebrow { justify-content: center; }
+.adv-head .eyebrow::after { content: ''; width: 28px; height: 2px; background: var(--amber); }
+.adv-sub { margin: 16px 0 0; font-size: 15.5px; line-height: 1.65; color: var(--steel); }
 
-/* One item at a time: the list on the left drives a single large panel, so the
-   section breathes instead of stacking five blocks of copy side by side. */
-.adv-show { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
-@media (max-width: 900px) { .adv-show { grid-template-columns: 1fr; } }
+.adv-cards {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(14px, 1.6vw, 24px);
+}
+@media (max-width: 1100px) { .adv-cards { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) { .adv-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 460px) { .adv-cards { grid-template-columns: 1fr; } }
 
-.adv-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.adv-item {
-  display: grid; grid-template-columns: 44px 40px 1fr; align-items: center; gap: 14px;
-  background: none; border: 0; border-bottom: 1px solid var(--line);
-  padding: 20px 4px; text-align: left; cursor: pointer;
-  transition: padding-left .3s, background .3s;
+.adv-card {
+  position: relative; overflow: hidden; isolation: isolate;
+  aspect-ratio: 3 / 4; min-height: 320px;
+  box-shadow: 0 18px 40px -26px rgba(7,23,35,.5);
 }
-.adv-item:hover, .adv-item.active { background: rgba(255,255,255,.6); padding-left: 14px; }
-.adv-num { font-family: var(--display); font-size: 26px; font-weight: 700; line-height: 1; color: var(--line-strong, #b9c6cd); transition: color .25s; }
-.adv-item.active .adv-num { color: var(--accent, #5bb7dd); }
-.adv-ic {
-  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
-  border: 1px solid var(--line); color: var(--steel); transition: background .25s, color .25s, border-color .25s;
+.adv-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s ease;
 }
-.adv-ic svg { width: 19px; height: 19px; }
-.adv-item.active .adv-ic { background: var(--ink); border-color: var(--ink); color: #fff; }
-.adv-name {
-  font-family: var(--display); text-transform: uppercase; font-size: 18px; line-height: 1.15;
-  color: var(--steel); transition: color .25s;
+.adv-card:hover img { transform: scale(1.06); }
+/* Dark wash so the white copy stays readable over any photo. */
+.adv-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(7,23,35,.35) 0%, rgba(7,23,35,.55) 45%, rgba(7,23,35,.92) 100%);
+  transition: background .4s;
 }
-.adv-item.active .adv-name { color: var(--ink); }
+.adv-card:hover::after {
+  background: linear-gradient(180deg, rgba(7,23,35,.45) 0%, rgba(7,23,35,.7) 45%, rgba(7,23,35,.95) 100%);
+}
 
-.adv-panel { position: relative; }
-.adv-figure { margin: 0; overflow: hidden; }
-.adv-figure img { width: 100%; aspect-ratio: 16 / 9; max-height: 300px; object-fit: cover; animation: adv-fade .5s ease; }
-@keyframes adv-fade { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: none; } }
-.adv-copy { max-width: 54ch; padding-top: 26px; animation: adv-fade .5s ease; }
-.adv-copy h3 { font-size: clamp(26px, 2.6vw, 34px); text-transform: uppercase; color: var(--ink); margin: 0 0 12px; }
-.adv-copy p { font-size: 16px; line-height: 1.7; color: var(--steel); margin: 0; }
-@media (prefers-reduced-motion: reduce) { .adv-figure img, .adv-copy { animation: none; } }
+.adv-card-body {
+  position: absolute; inset: auto 0 0 0; z-index: 1;
+  padding: 22px 20px 24px; color: #fff;
+}
+.adv-card-icon { display: block; color: #fff; opacity: .9; margin-bottom: 14px; }
+.adv-card-body h3 {
+  font-family: var(--display); font-size: clamp(20px, 1.7vw, 25px); line-height: 1.12;
+  text-transform: uppercase; color: #fff; margin: 0;
+}
+.adv-card-body p {
+  margin: 0; font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,.78);
+  /* the copy stays folded away until hover, so the row reads as clean headings */
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height .45s ease, opacity .35s ease, margin-top .45s ease;
+}
+.adv-card:hover .adv-card-body p,
+.adv-card:focus-within .adv-card-body p { max-height: 200px; opacity: 1; margin-top: 10px; }
+@media (max-width: 700px), (prefers-reduced-motion: reduce) {
+  .adv-card-body p { max-height: 200px; opacity: 1; margin-top: 10px; }
+}
+
+
+/* ---------- Clients ---------- */
+.clients { background: var(--mist); }
+.clients-head { text-align: center; margin-bottom: clamp(30px, 4vw, 52px); }
+.clients-head h2 {
+  font-family: var(--display); text-transform: none; font-weight: 700;
+  font-size: clamp(30px, 4.4vw, 52px); color: var(--ink); letter-spacing: -.01em;
+}
+.clients-head p { color: var(--steel); font-size: clamp(15px, 1.3vw, 17px); margin: 12px 0 0; }
+
+/* Two marquee strips, scrolling in opposite directions. */
+.client-marquee {
+  display: grid; gap: clamp(12px, 1.4vw, 20px);
+  /* fade the logos out at both edges instead of cutting them off */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.client-strip { overflow: hidden; }
+.client-track {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; width: max-content;
+  gap: clamp(12px, 1.4vw, 20px);
+  animation: client-scroll var(--speed, 48s) linear infinite;
+}
+.client-track.rev { animation-direction: reverse; }
+.client-marquee:hover .client-track { animation-play-state: paused; }
+@keyframes client-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  /* half the track is the duplicated copy, so -50% loops seamlessly */
+  to { transform: translate3d(calc(-50% - clamp(12px, 1.4vw, 20px) / 2), 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .client-track { animation: none; }
+  .client-strip { overflow-x: auto; }
+}
+
+.client-track .client {
+  flex: 0 0 auto;
+  width: clamp(180px, 17vw, 232px);
+  background: var(--paper); border: 1px solid var(--line); min-height: 104px; padding: 18px 22px;
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow .3s, transform .3s, border-color .3s;
+}
+.client-track .client:hover { box-shadow: 0 18px 34px -22px rgba(7,23,35,.4); transform: translateY(-3px); border-color: transparent; }
+.client-track .client img {
+  max-height: 54px; width: auto; object-fit: contain;
+  filter: grayscale(1); opacity: .68; transition: filter .3s, opacity .3s;
+}
+.client-track .client:hover img { filter: none; opacity: 1; }
+/* Plate with no file yet: quiet placeholder rather than a broken image. */
+.client-track .client.empty { background: rgba(255,255,255,.55); border-style: dashed; }
 
 /* ---------- Contact ---------- */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 5vw, 72px); align-items: stretch; }

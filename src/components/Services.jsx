@@ -10,11 +10,15 @@ import { scrollToId } from '../hooks'
 export default function Services({ openService, onClearOpen, onFocusProject }) {
   const [openId, setOpenId] = useState(null)
   const [caseId, setCaseId] = useState(null)
+  // Which service the preview panel is showing; follows hover, then selection.
+  const [previewId, setPreviewId] = useState(services[0].id)
+  const preview = services.find((s) => s.id === previewId) || services[0]
 
   // Allow other sections (projects, map, fleet) to drive this panel.
   useEffect(() => {
     if (!openService) return
     setOpenId(openService.serviceId)
+    setPreviewId(openService.serviceId)
     setCaseId(openService.projectId || null)
     onClearOpen?.()
   }, [openService, onClearOpen])
@@ -28,9 +32,6 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
       setCaseId(null)
     }
   }
-
-  const rows = []
-  for (let i = 0; i < services.length; i += 3) rows.push(services.slice(i, i + 3))
 
   return (
     <section id="services" className="section-dark pad-y">
@@ -56,56 +57,67 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
           </a>
         </div>
 
-        <div className="reveal">
-          {rows.map((row, ri) => {
-            const openInRow = row.find((s) => s.id === openId)
-            return (
-              <div key={ri}>
-                <div className="svc-grid">
-                  {row.map((s, ci) => (
-                    <button
-                      key={s.id}
-                      className="svc"
-                      aria-expanded={openId === s.id}
-                      aria-controls={openId === s.id ? `panel-${s.id}` : undefined}
-                      onClick={() => toggle(s.id)}
-                    >
-                      <span className="svc-media" aria-hidden="true">
-                        <img src={s.img} alt="" loading="lazy" decoding="async" />
-                      </span>
-                      <span className="svc-body">
-                        <span className="svc-num">
-                          {String(ri * 3 + ci + 1).padStart(2, '0')}
-                          <i />
-                        </span>
-                        <h3>{s.name}</h3>
-                        <span className="svc-reveal">
-                          <p>{s.blurb}</p>
-                          <span className="svc-go">
-                            <Arrow />
-                          </span>
-                        </span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-
-                {openInRow && (
-                  <ServicePanel
-                    service={openInRow}
-                    caseId={caseId}
-                    setCaseId={setCaseId}
-                    onClose={() => {
-                      setOpenId(null)
-                      setCaseId(null)
+        <div className="svc-split reveal">
+          <ol className="svc-list">
+            {services.map((s, i) => {
+              const open = openId === s.id
+              return (
+                <li className={`svc-row ${open ? 'open' : ''} ${previewId === s.id ? 'showing' : ''}`} key={s.id}>
+                  <button
+                    className="svc-row-head"
+                    aria-expanded={open}
+                    aria-controls={open ? `panel-${s.id}` : undefined}
+                    onMouseEnter={() => setPreviewId(s.id)}
+                    onFocus={() => setPreviewId(s.id)}
+                    onClick={() => {
+                      setPreviewId(s.id)
+                      toggle(s.id)
                     }}
-                    onFocusProject={onFocusProject}
-                  />
-                )}
-              </div>
-            )
-          })}
+                  >
+                    <span className="svc-n">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="svc-name">{s.name}</span>
+                    <span className="svc-go">
+                      <Arrow />
+                    </span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+
+          {/* Every image is mounted and cross-faded, so switching never flashes. */}
+          <figure className="svc-preview" aria-hidden="true">
+            <span className="svc-preview-stack">
+              {services.map((s) => (
+                <img
+                  key={s.id}
+                  className={previewId === s.id ? 'on' : ''}
+                  src={s.img}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              ))}
+            </span>
+            <figcaption>
+              <span className="k">{preview.name}</span>
+              <span className="d">{preview.blurb}</span>
+            </figcaption>
+          </figure>
         </div>
+
+        {openId && (
+          <ServicePanel
+            service={services.find((s) => s.id === openId)}
+            caseId={caseId}
+            setCaseId={setCaseId}
+            onClose={() => {
+              setOpenId(null)
+              setCaseId(null)
+            }}
+            onFocusProject={onFocusProject}
+          />
+        )}
       </div>
     </section>
   )
