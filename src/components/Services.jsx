@@ -1,27 +1,16 @@
-import { useEffect, useState } from 'react'
-import { services, projects, fleet } from '../data/site'
+import { useState } from 'react'
+import { services, serviceDetail } from '../data/site'
+import { navigate } from '../router'
 import { scrollToId } from '../hooks'
 
 /**
- * Services grid where selecting a service expands, in place, a case study of a
- * project delivered under it — and that case study names the vessels used,
- * each linking back into the fleet section.
+ * Services index: a numbered list driving one large preview. The arrow on each
+ * row goes to that service's own page; nothing expands in place.
  */
-export default function Services({ openService, onClearOpen, onFocusProject }) {
-  const [openId, setOpenId] = useState(null)
-  const [caseId, setCaseId] = useState(null)
+export default function Services() {
   // Which service the preview panel is showing; follows hover, then selection.
   const [previewId, setPreviewId] = useState(services[0].id)
   const preview = services.find((s) => s.id === previewId) || services[0]
-
-  // Allow other sections (projects, map, fleet) to drive this panel.
-  useEffect(() => {
-    if (!openService) return
-    setOpenId(openService.serviceId)
-    setPreviewId(openService.serviceId)
-    setCaseId(openService.projectId || null)
-    onClearOpen?.()
-  }, [openService, onClearOpen])
 
   return (
     <section id="services" className="section-dark pad-y">
@@ -50,9 +39,8 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
         <div className="svc-split reveal">
           <ol className="svc-list">
             {services.map((s, i) => {
-              const open = openId === s.id
               return (
-                <li className={`svc-row ${open ? 'open' : ''} ${previewId === s.id ? 'showing' : ''}`} key={s.id}>
+                <li className={`svc-row ${previewId === s.id ? 'showing' : ''}`} key={s.id}>
                   <button
                     className="svc-row-head"
                     onMouseEnter={() => setPreviewId(s.id)}
@@ -61,10 +49,22 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
                   >
                     <span className="svc-n">{String(i + 1).padStart(2, '0')}</span>
                     <span className="svc-name">{s.name}</span>
-                    <span className="svc-go">
-                      <Arrow />
-                    </span>
                   </button>
+                  {/* The arrow is the way into that service's own page. */}
+                  <a
+                    className="svc-go"
+                    href={serviceDetail[s.id] ? `/services/${s.id}` : `/services#${s.id}`}
+                    aria-label={`Open ${s.name}`}
+                    onMouseEnter={() => setPreviewId(s.id)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      serviceDetail[s.id]
+                        ? navigate(`/services/${s.id}`)
+                        : navigate('/services', { hash: s.id })
+                    }}
+                  >
+                    <Arrow />
+                  </a>
                 </li>
               )
             })}
@@ -91,125 +91,8 @@ export default function Services({ openService, onClearOpen, onFocusProject }) {
           </figure>
         </div>
 
-        {openId && (
-          <ServicePanel
-            service={services.find((s) => s.id === openId)}
-            caseId={caseId}
-            setCaseId={setCaseId}
-            onClose={() => {
-              setOpenId(null)
-              setCaseId(null)
-            }}
-            onFocusProject={onFocusProject}
-          />
-        )}
       </div>
     </section>
-  )
-}
-
-function ServicePanel({ service, caseId, setCaseId, onClose, onFocusProject }) {
-  const related = projects.filter((p) => p.services.includes(service.id))
-  const current = related.find((p) => p.id === caseId) || related[0]
-
-  return (
-    <div className="panel" id={`panel-${service.id}`}>
-      <div className="panel-inner">
-        <div className="panel-grid">
-          <div>
-            <h3>{service.name}</h3>
-            <p className="panel-detail">{service.detail}</p>
-
-            {current ? (
-              <>
-                {related.length > 1 && (
-                  <div className="case-tabs" role="tablist" aria-label="Related projects">
-                    {related.map((p) => (
-                      <button
-                        key={p.id}
-                        role="tab"
-                        aria-selected={p.id === current.id}
-                        className={`case-tab ${p.id === current.id ? 'active' : ''}`}
-                        onClick={() => setCaseId(p.id)}
-                      >
-                        {p.place.split(',')[0]}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                <article className="panel-case">
-                  <img src={current.img} alt={current.title} loading="lazy" decoding="async" />
-                  <div className="panel-case-body">
-                    <div className="place">
-                      {current.place}{current.year !== '' ? ` · ${current.year}` : ''}
-                    </div>
-                    <h4>{current.title}</h4>
-                    <p>{current.summary}</p>
-                    <div className="metrics">
-                      {current.metrics.map((m) => (
-                        <div key={m.v}>
-                          <div className="k">{m.k}</div>
-                          <div className="v">{m.v}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              </>
-            ) : (
-              <p className="panel-detail">
-                Case studies for this service are being added. Talk to us about scope and we will
-                share references directly.
-              </p>
-            )}
-          </div>
-
-          <div>
-            <div className="fleet-mini">
-              <h5>Fleet deployed on this project</h5>
-              {(current ? current.vessels : Object.keys(fleet)).map((v) => {
-                const f = fleet[v]
-                if (!f) return null
-                return (
-                  <a
-                    key={v}
-                    className="fleet-chip"
-                    href="#fleet"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      scrollToId('fleet')
-                    }}
-                  >
-                    <img src={f.img} alt="" loading="lazy" decoding="async" />
-                    <span>
-                      <span className="n">{f.name}</span>
-                      <span className="s" style={{ display: 'block' }}>
-                        {f.spec}
-                      </span>
-                    </span>
-                  </a>
-                )
-              })}
-            </div>
-
-            {current && (
-              <button
-                className="btn btn-primary"
-                style={{ marginTop: 18 }}
-                onClick={() => onFocusProject?.(current.id)}
-              >
-                View project on the map <Arrow />
-              </button>
-            )}
-          </div>
-        </div>
-
-        <button className="panel-close" onClick={onClose}>
-          ✕ Close {service.name}
-        </button>
-      </div>
-    </div>
   )
 }
 

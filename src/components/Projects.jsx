@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { projects, services } from '../data/site'
 import { scrollToId } from '../hooks'
+import { navigate } from '../router'
 
 const serviceName = (id) => services.find((s) => s.id === id)?.name || id
 
@@ -81,10 +82,14 @@ function ProjectTile({ project: p, onOpenService }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema(p)) }}
       />
 
-      <button
+      <a
         className="proj-tile"
-        onClick={() => onOpenService(p.services[0], p.id)}
-        aria-label={`${p.title}: open the ${serviceName(p.services[0])} story`}
+        href={`/projects/${p.id}`}
+        onClick={(e) => {
+          e.preventDefault()
+          navigate(`/projects/${p.id}`)
+        }}
+        aria-label={`${p.title}: open project page`}
       >
         <img className="proj-img" src={p.img} alt="" loading="lazy" decoding="async" />
 
@@ -124,7 +129,7 @@ function ProjectTile({ project: p, onOpenService }) {
             <span className="proj-more-link">Explore Project</span>
           </span>
         </span>
-      </button>
+      </a>
     </article>
   )
 }

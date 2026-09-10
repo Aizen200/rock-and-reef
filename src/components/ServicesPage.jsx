@@ -8,7 +8,8 @@ import { navigate } from '../router'
 export default function ServicesPage() {
   return (
     <main className="page">
-      <section className="page-hero">
+      <section className="page-hero has-img">
+        <img className="page-hero-img" src="/img/Dredging-Services.jpg" alt="Cutter suction dredger working in a channel" />
         <div className="wrap">
           <p className="crumb">
             <a
@@ -26,10 +27,9 @@ export default function ServicesPage() {
             Leading the way in dredging <em>and</em> marine works
           </h1>
           <p className="page-lede">
-            Nine capabilities delivered by one integrated team with its own fleet: capital and
-            maintenance dredging, trenching, subsea cable and pipe laying, survey, breakwater
-            construction and shipbuilding. Send us the scope and we come back with a method and a
-            programme.
+            Nine capabilities delivered by one integrated team with its own fleet: capital,
+            maintenance, deep and reservoir dredging, trenching, survey, breakwater construction
+            and shipbuilding. Send us the scope and we come back with a method and a programme.
           </p>
         </div>
       </section>

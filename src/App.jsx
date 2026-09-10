@@ -10,10 +10,14 @@ import About from './components/About'
 import Clients from './components/Clients'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { company, nav } from './data/site'
-import { useReveal, useActiveSection, scrollToId } from './hooks'
+import { company, nav, serviceDetail, fleetDetail } from './data/site'
+import { useReveal, useActiveSection } from './hooks'
 import ServicesPage from './components/ServicesPage'
-import { useRoute } from './router'
+import ServiceDetailPage from './components/ServiceDetailPage'
+import ProjectPage from './components/ProjectPage'
+import ProjectsPage from './components/ProjectsPage'
+import FleetPage from './components/FleetPage'
+import { useRoute, navigate } from './router'
 
 export default function App() {
   const route = useRoute()
@@ -21,21 +25,61 @@ export default function App() {
   const ids = useMemo(() => nav.map((n) => n.id), [])
   const active = useActiveSection(ids)
 
-  // Cross-section wiring: any card can open the service panel on a given project.
-  const [openService, setOpenService] = useState(null)
-  const [focusProject, setFocusProject] = useState(null)
+  // Cross-section wiring: a project named anywhere opens its own page.
 
   const openServiceWith = useCallback((serviceId, projectId) => {
-    setOpenService({ serviceId, projectId, at: Date.now() })
-    scrollToId('services')
+    if (projectId) navigate(`/projects/${projectId}`)
+    else navigate(`/services/${serviceId}`)
   }, [])
 
-  const focusOnMap = useCallback((projectId) => {
-    setFocusProject(projectId)
-    scrollToId('map')
-  }, [])
+  if (route === '/projects') {
+    return (
+      <>
+        <Header active="projects" solid />
+        <ProjectsPage />
+        <Footer />
+        <WhatsApp />
+      </>
+    )
+  }
 
-  if (route === '/services') {
+  const projectMatch = route.match(/^\/projects\/([a-z0-9-]+)$/)
+  if (projectMatch) {
+    return (
+      <>
+        <Header active="projects" solid />
+        <ProjectPage id={projectMatch[1]} />
+        <Footer />
+        <WhatsApp />
+      </>
+    )
+  }
+
+  const fleetMatch = route.match(/^\/fleet\/([a-z0-9-]+)$/)
+  if (fleetMatch) {
+    return (
+      <>
+        <Header active="fleet" solid />
+        <FleetPage id={fleetMatch[1]} />
+        <Footer />
+        <WhatsApp />
+      </>
+    )
+  }
+
+  const detailMatch = route.match(/^\/services\/([a-z0-9-]+)$/)
+  if (detailMatch && serviceDetail[detailMatch[1]]) {
+    return (
+      <>
+        <Header active="services" solid />
+        <ServiceDetailPage id={detailMatch[1]} />
+        <Footer />
+        <WhatsApp />
+      </>
+    )
+  }
+
+  if (route === '/services' || detailMatch) {
     return (
       <>
         <Header active="services" solid />
@@ -53,13 +97,9 @@ export default function App() {
         <Hero />
         <StatBand />
         <About />
-        <Services
-          openService={openService}
-          onClearOpen={() => setOpenService(null)}
-          onFocusProject={focusOnMap}
-        />
+        <Services />
         <Projects onOpenService={openServiceWith} />
-        <IndiaMap focusProject={focusProject} onOpenService={openServiceWith} />
+        <IndiaMap onOpenService={openServiceWith} />
         <Fleet onOpenService={openServiceWith} />
         <Clients />
         <Contact />

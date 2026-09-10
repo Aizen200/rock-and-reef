@@ -1,82 +1,55 @@
-import { fleet, fleetOverview, projects } from '../data/site'
+import { fleet, fleetDetail, projects } from '../data/site'
+import { navigate } from '../router'
 
 /**
- * The fleet splits into two tiers rather than one flat grid of equal cards:
- * the three dredger classes carry the work and get full-size plates, while the
- * four support vessels sit beneath as a compact register. Seven equal cards in
- * a three-column grid always left a stranded orphan on the last row.
+ * One register for every vessel class we own, dredgers and support craft
+ * alike, so the fleet reads as a single capability rather than two tiers.
  */
 export default function Fleet({ onOpenService }) {
   const vessels = Object.values(fleet)
-  const dredgers = vessels.filter((v) => v.tier === 'dredger')
-  const support = vessels.filter((v) => v.tier !== 'dredger')
-
   const deployments = (f) => projects.filter((p) => p.vessels.includes(f.id))
 
   return (
     <section id="fleet" className="section-dark pad-y">
       <div className="wrap">
         <div className="fleet-head reveal">
-          <div>
-            <p className="eyebrow on-dark">Owned and operated</p>
-            <h2 className="section-title">The Fleet</h2>
-          </div>
-          <div>
-            <p className="fleet-lede">{fleetOverview}</p>
-            <ul className="fleet-tally">
-              <li>
-                <b>{dredgers.length}</b> dredger classes
-              </li>
-              <li>
-                <b>9</b> tugs and hopper barges
-              </li>
-              <li>
-                <b>In house</b> build and repair
-              </li>
-            </ul>
-          </div>
+          <p className="eyebrow on-dark">Owned and operated</p>
+          <h2 className="section-title">The Fleet</h2>
         </div>
 
-        {/* Tier 1 — the dredgers */}
         <div className="fleet-tier reveal">
           <h3 className="fleet-tier-label">
-            <span className="n">01</span> Dredgers
-            <em>What actually moves the seabed</em>
+            <span className="n">{String(vessels.length).padStart(2, '0')}</span> Fleets
+            <em>Dredgers, haulage, towage, crew and survey</em>
           </h3>
 
           <ul className="fleet-primary">
-            {dredgers.map((f) => (
+            {vessels.map((f) => (
               <li className="fleet-card" key={f.id}>
                 <span className="fleet-plate">
                   <img src={f.img} alt={f.name} loading="lazy" decoding="async" />
                 </span>
                 <div className="fleet-body">
                   <p className="fleet-role">{f.role}</p>
-                  <h4>{f.name}</h4>
-                  <p className="fleet-spec">{f.spec}</p>
-                  <Deployments list={deployments(f)} onOpenService={onOpenService} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Tier 2 — everything that keeps them working */}
-        <div className="fleet-tier reveal">
-          <h3 className="fleet-tier-label">
-            <span className="n">02</span> Support fleet
-            <em>Haulage, towage, crew and survey</em>
-          </h3>
-
-          <ul className="fleet-support">
-            {support.map((f) => (
-              <li className="fleet-row" key={f.id}>
-                <span className="fleet-plate small">
-                  <img src={f.img} alt={f.name} loading="lazy" decoding="async" />
-                </span>
-                <div className="fleet-body">
-                  <p className="fleet-role">{f.role}</p>
-                  <h4>{f.name}</h4>
+                  <h4>
+                    {fleetDetail[f.id] ? (
+                      <a
+                        className="fleet-link"
+                        href={`/fleet/${f.id}`}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          navigate(`/fleet/${f.id}`)
+                        }}
+                      >
+                        {f.name}
+                        <svg width="14" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
+                          <path d="M0 5h14M10 1l4 4-4 4" stroke="currentColor" strokeWidth="1.6" />
+                        </svg>
+                      </a>
+                    ) : (
+                      f.name
+                    )}
+                  </h4>
                   <p className="fleet-spec">{f.spec}</p>
                   {f.units && (
                     <p className="fleet-units">
@@ -85,6 +58,7 @@ export default function Fleet({ onOpenService }) {
                       ))}
                     </p>
                   )}
+                  <Deployments list={deployments(f)} onOpenService={onOpenService} />
                 </div>
               </li>
             ))}

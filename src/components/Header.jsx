@@ -11,8 +11,8 @@ export default function Header({ active, solid = false }) {
   const go = (e, id) => {
     e.preventDefault()
     setOpen(false)
-    if (id === 'services') {
-      navigate('/services')
+    if (id === 'services' || id === 'projects') {
+      navigate(`/${id}`)
       return
     }
     if (window.location.pathname === '/') scrollToId(id)
@@ -33,7 +33,7 @@ export default function Header({ active, solid = false }) {
           {nav.map((n) => (
             <a
               key={n.id}
-              href={n.id === 'services' ? '/services' : `#${n.id}`}
+              href={n.id === 'services' || n.id === 'projects' ? `/${n.id}` : `#${n.id}`}
               className={active === n.id ? 'active' : ''}
               onClick={(e) => go(e, n.id)}
             >
@@ -64,7 +64,7 @@ export default function Header({ active, solid = false }) {
           {nav.map((n) => (
             <a
               key={n.id}
-              href={n.id === 'services' ? '/services' : `#${n.id}`}
+              href={n.id === 'services' || n.id === 'projects' ? `/${n.id}` : `#${n.id}`}
               onClick={(e) => go(e, n.id)}
             >
               {n.label}
