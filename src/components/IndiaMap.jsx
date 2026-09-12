@@ -191,15 +191,17 @@ export default function IndiaMap({ focusProject, onOpenService }) {
                   >
                     <circle className="halo" r="2.6" />
                     <circle className="dot" r="1.25" />
-                    <text
-                      className="map-label"
-                      x={lab.dx}
-                      y={lab.dy}
-                      textAnchor={lab.anchor}
-                      dominantBaseline="middle"
-                    >
-                      {p.place.split(',')[0]}
-                    </text>
+                    {(on || openRegion === p.region) && (
+                      <text
+                        className="map-label"
+                        x={lab.dx}
+                        y={lab.dy}
+                        textAnchor={lab.anchor}
+                        dominantBaseline="middle"
+                      >
+                        {p.region}
+                      </text>
+                    )}
                     <title>{`${p.title}, ${p.place}`}</title>
                   </g>
                 )

@@ -21,7 +21,7 @@ export const stats = [
   { value: '100+', label: 'Projects completed successfully' },
   { value: '25+', label: 'Million cubic metres dredged' },
   // Backhoe, cutter suction and grab: the classes we own and operate.
-  { value: '3', label: 'Classes of dredgers in the fleet' },
+  { value: '11', label: 'Treasure in the fleet' },
 ]
 
 // --- Fleet -------------------------------------------------------------

@@ -26,10 +26,16 @@ export default function Fleet({ onOpenService }) {
           <ul className="fleet-primary">
             {vessels.map((f) => (
               <li className="fleet-card" key={f.id}>
-                <span className="fleet-plate">
-                  <img src={f.img} alt={f.name} loading="lazy" decoding="async" />
-                </span>
-                <div className="fleet-body">
+                {/* Default Face: Blueprint image plate + Title */}
+                <div className="fleet-card-default">
+                  <div className="fleet-plate">
+                    <img src={f.img} alt={f.name} loading="lazy" decoding="async" />
+                  </div>
+                  <h4 className="fleet-title-overlay">{f.name}</h4>
+                </div>
+
+                {/* Hover Face: Detailed information (Role, Title, Specs, Units, Deployments) */}
+                <div className="fleet-card-hover">
                   <p className="fleet-role">{f.role}</p>
                   <h4>
                     {fleetDetail[f.id] ? (
@@ -42,21 +48,18 @@ export default function Fleet({ onOpenService }) {
                         }}
                       >
                         {f.name}
-                        <svg width="14" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
-                          <path d="M0 5h14M10 1l4 4-4 4" stroke="currentColor" strokeWidth="1.6" />
-                        </svg>
                       </a>
                     ) : (
                       f.name
                     )}
                   </h4>
-                  <p className="fleet-spec">{f.spec}</p>
+                  <p className="fleet-hover-desc">{f.spec}</p>
                   {f.units && (
-                    <p className="fleet-units">
+                    <div className="fleet-units">
                       {f.units.map((u) => (
                         <span key={u}>{u}</span>
                       ))}
-                    </p>
+                    </div>
                   )}
                   <Deployments list={deployments(f)} onOpenService={onOpenService} />
                 </div>
