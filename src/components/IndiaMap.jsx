@@ -12,9 +12,9 @@ const PINS = projects.map((p) => ({ ...p, pt: project(p.coords.lat, p.coords.lng
 const LABEL = {
   mult: { dx: -3, dy: 1.2, anchor: 'end' },
   gogha: { dx: -3, dy: 0.2, anchor: 'end' },
-  jd5: { dx: 3, dy: -1.6, anchor: 'start' },
-  salvage: { dx: 3, dy: 1.4, anchor: 'start' },
-  offshore: { dx: -3, dy: 0.4, anchor: 'end' },
+  jd5: { dx: 3.5, dy: -2.8, anchor: 'start' },
+  salvage: { dx: 3.5, dy: 2.8, anchor: 'start' },
+  offshore: { dx: -3.5, dy: 0.4, anchor: 'end' },
   dakpathar: { dx: 3, dy: -0.4, anchor: 'start' },
 }
 
@@ -199,7 +199,7 @@ export default function IndiaMap({ focusProject, onOpenService }) {
                         textAnchor={lab.anchor}
                         dominantBaseline="middle"
                       >
-                        {p.region}
+                        {p.mapLabel || p.title}
                       </text>
                     )}
                     <title>{`${p.title}, ${p.place}`}</title>

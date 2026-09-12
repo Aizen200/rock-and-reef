@@ -91,6 +91,7 @@ export const projects = [
   {
     id: 'porbandar',
     title: 'Coast Guard Jetty, Porbandar Port',
+    mapLabel: 'Porbandar Port',
     place: 'Porbandar Port, Gujarat',
     region: 'Gujarat',
     client: 'Gujarat Maritime Board',
@@ -186,6 +187,7 @@ export const projects = [
   {
     id: 'mult',
     title: 'MULT Project, Capital Dredging',
+    mapLabel: 'Kochi Port',
     place: 'Kochi Port, Kerala',
     region: 'Kerala',
     client: 'IOCL, via Kochi Port',
@@ -209,6 +211,7 @@ export const projects = [
   {
     id: 'gogha',
     title: 'Ferry Terminal, Gogha',
+    mapLabel: 'Gogha',
     place: 'Gogha, Gulf of Khambhat, Gujarat',
     region: 'Gujarat',
     client: 'Ferry terminal developer',
@@ -231,6 +234,7 @@ export const projects = [
   {
     id: 'jd5',
     title: 'Fifth Oil Berth (JD-5), MbPT',
+    mapLabel: 'Fifth Oil Berth',
     place: 'Mumbai Harbour, Maharashtra',
     region: 'Maharashtra',
     client: 'Sapura (main contractor), Mumbai Port Trust',
@@ -253,6 +257,7 @@ export const projects = [
   {
     id: 'dakpathar',
     title: 'Dakpathar Barrage, Reservoir Dredging',
+    mapLabel: 'Dakpathar Barrage',
     place: 'Dakpathar, Uttarakhand',
     region: 'Uttarakhand',
     client: 'Executed with international technology partners',
@@ -275,6 +280,7 @@ export const projects = [
   {
     id: 'offshore',
     title: 'Offshore Works, Pipe Laying & Trenching',
+    mapLabel: 'Offshore Works',
     place: 'Offshore Mumbai, Maharashtra',
     region: 'Maharashtra',
     client: 'Sapura',
@@ -297,6 +303,7 @@ export const projects = [
   {
     id: 'salvage',
     title: 'Bollard Salvage, APM Terminals',
+    mapLabel: 'Bollard Salvage',
     place: 'Navi Mumbai, Maharashtra',
     region: 'Maharashtra',
     client: 'APM Terminals',
