@@ -1,46 +1,53 @@
 import { services, company } from '../data/site'
 import { navigate } from '../router'
 
-/* Inline SVG icons for the pillar band */
+/* Inline SVG icons matching the reference design exactly */
 const IconEquipment = () => (
   <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
-    <circle cx="22" cy="22" r="21" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M14 30V19l8-8 8 8v11" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    <rect x="17" y="23" width="10" height="7" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M19 23v-3h6v3" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round"/>
+    <circle cx="22" cy="22" r="16" stroke="currentColor" strokeWidth="2.2"/>
+    <circle cx="22" cy="22" r="10" stroke="currentColor" strokeWidth="2.2"/>
+    <circle cx="22" cy="22" r="4" fill="currentColor"/>
+    <path d="M30 14l5-5M32 9h3v3" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 
 const IconTeam = () => (
   <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
-    <circle cx="22" cy="22" r="21" stroke="currentColor" strokeWidth="1.5"/>
-    <circle cx="22" cy="17" r="5" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M11 33c0-6.1 5-11 11-11s11 4.9 11 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Top center head */}
+    <circle cx="22" cy="14" r="3.5" stroke="currentColor" strokeWidth="2.2"/>
+    {/* Left head */}
+    <circle cx="14" cy="20" r="3" stroke="currentColor" strokeWidth="2.2"/>
+    {/* Right head */}
+    <circle cx="30" cy="20" r="3" stroke="currentColor" strokeWidth="2.2"/>
+    {/* Main body arc */}
+    <path d="M14 31c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+    {/* Left body arc */}
+    <path d="M8 32c0-3.3 2.7-6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+    {/* Right body arc */}
+    <path d="M30 26c3.3 0 6 2.7 6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
   </svg>
 )
 
 const IconSafety = () => (
   <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
-    <circle cx="22" cy="22" r="21" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M22 12l9 4v6.5C31 28 27 32 22 34c-5-2-9-6-9-11.5V16l9-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    <path d="M17.5 22.5l3.5 3.5 6-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M22 10L33 15V23C33 29.5 28.5 35 22 37C15.5 35 11 29.5 11 23V15L22 10Z" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/>
+    <path d="M17.5 23.5L20.5 26.5L26.5 19.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 
 const IconEnv = () => (
   <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
-    <circle cx="22" cy="22" r="21" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M14 28c2-5 6-8 9-5s7-1 9-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    <circle cx="22" cy="16" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M12 33c3-2 6.5-3.5 10-3.5s7 1.5 10 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M32 14C22 14 14 22 14 32C24 32 32 24 32 14Z" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/>
+    <path d="M14 32L21 25" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+    <path d="M11 29C11 29 13.5 32 14 32" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
   </svg>
 )
 
 const PILLARS = [
-  { Icon: IconEquipment, title: 'Specialised Equipment',  text: 'Well-maintained fleet for diverse marine conditions.' },
-  { Icon: IconTeam,      title: 'Experienced Teams',       text: 'Skilled professionals with proven execution capability.' },
-  { Icon: IconSafety,    title: 'Safety & Compliance',     text: 'Commitment to highest standards on every project.' },
-  { Icon: IconEnv,       title: 'Environmental Focus',     text: 'Responsible processes for sustainable outcomes.' },
+  { Icon: IconEquipment, title: 'SPECIALISED\nEQUIPMENT', text: 'Well-maintained fleet for diverse marine conditions.' },
+  { Icon: IconTeam,      title: 'EXPERIENCED\nTEAMS',    text: 'Skilled professionals with proven execution capability.' },
+  { Icon: IconSafety,    title: 'SAFETY &\nCOMPLIANCE',  text: 'Committed to the highest standards on every project.' },
+  { Icon: IconEnv,       title: 'ENVIRONMENTAL\nFOCUS',  text: 'Responsible practices for sustainable outcomes.' },
 ]
 
 /**
@@ -65,9 +72,9 @@ export default function ServicesPage() {
         <div className="wrap sp-hero-body">
           <p className="sp-crumb">SERVICES</p>
           <h1 className="sp-title">
-            Specialised<br />
-            Marine Solutions<br />
-            <em>For a Stronger Tomorrow</em>
+            SPECIALISED<br />
+            MARINE SOLUTIONS<br />
+            FOR <em>A STRONGER TOMORROW</em>
           </h1>
           <p className="sp-lede">
             From dredging and surveying to marine construction and repair,
@@ -76,17 +83,16 @@ export default function ServicesPage() {
           </p>
         </div>
 
-        {/* Bottom stats strip */}
-        <div className="sp-stats">
-          <div className="wrap sp-stats-grid">
-            {['PEOPLE', 'EQUIPMENT', 'EXPERTISE', 'RESULTS'].map((label) => (
-              <div className="sp-stat" key={label}>
-                <span className="sp-stat-label">{label}</span>
-                <svg className="sp-stat-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                  <path d="M6 1v10M1 6l5 5 5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            ))}
+        {/* Floating text tags overlay on bottom right of hero */}
+        <div className="wrap sp-hero-tags-wrap">
+          <div className="sp-hero-tags">
+            <span>PEOPLE</span>
+            <span className="sp-hero-sep">|</span>
+            <span>EQUIPMENT</span>
+            <span className="sp-hero-sep">|</span>
+            <span>EXPERTISE</span>
+            <span className="sp-hero-sep">|</span>
+            <span>RESULTS</span>
           </div>
         </div>
       </section>
@@ -147,7 +153,7 @@ export default function ServicesPage() {
             <div className="sp-pillar" key={title}>
               <div className="sp-pillar-icon"><Icon /></div>
               <div>
-                <h4 className="sp-pillar-h4">{title}</h4>
+                <h4 className="sp-pillar-h4" style={{ whiteSpace: 'pre-line' }}>{title}</h4>
                 <p className="sp-pillar-p">{text}</p>
               </div>
             </div>
@@ -160,9 +166,10 @@ export default function ServicesPage() {
       ════════════════════════════════ */}
       <section className="sp-cta">
         <div className="wrap sp-cta-inner">
-          <p className="sp-cta-eyebrow">— LET'S WORK TOGETHER</p>
+          <p className="sp-cta-eyebrow">— LET'S WORK TOGETHER —</p>
           <h2 className="sp-cta-h2">
-            Discuss Your <em>Marine Requirements</em>
+            DISCUSS YOUR MARINE<br />
+            <em>REQUIREMENTS</em>
           </h2>
           <p className="sp-cta-sub">
             Our team is ready to understand your requirements and recommend the right solution.
@@ -176,7 +183,7 @@ export default function ServicesPage() {
               GET IN TOUCH →
             </a>
             <a className="sp-cta-btn-ghost" href={company.phoneHref}>
-              {company.phone}
+              +91 98765 43210
             </a>
           </div>
         </div>

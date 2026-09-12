@@ -325,7 +325,7 @@ export const services = [
     name: 'Capital Dredging',
     img: '/img/Dredging-Services.jpg',
     blurb:
-      'New depth where there was none, ports, berths, approach channels and turning circles, including hard rock and compacted strata.',
+      'New capital dredging for ports, harbours, approach channels and navigation basins.',
     detail:
       'A comprehensive range of dredging services, including river desilting, coastal restoration and harbour maintenance. Capital dredging is the core of Rock and Reef, and the fleet is built around it.',
   },
@@ -334,7 +334,7 @@ export const services = [
     name: 'Maintenance Dredging',
     img: '/img/dreging.jpg',
     blurb:
-      'Keeping declared depths available, programmed siltation removal at berths, channels and turning basins.',
+      'Keeping channels, berths and waterways at required depths for safe operations.',
     detail:
       'Planned, survey driven removal of siltation so terminals hold their declared depth year round, scheduled around live traffic and monsoon cycles.',
   },
@@ -342,7 +342,7 @@ export const services = [
     id: 'deep-dredging',
     name: 'Deep Dredging',
     img: '/img/deep-dredging-service.png',
-    blurb: 'Depth beyond the reach of standard plant, for deep water berths, basins and approaches.',
+    blurb: 'Dredging for deeper waters and challenging geological conditions.',
     detail:
       'Rock and Reef delivers specialist deep dredging where design depths exceed what conventional plant can reach, using long reach backhoe and cutter suction dredgers to achieve and hold the required profile in hard and compacted strata.',
   },
@@ -350,7 +350,7 @@ export const services = [
     id: 'reservoir-dredging',
     name: 'Reservoir Dredging',
     img: '/img/dakpathar-barrage-rock-and-reef-project.jpg',
-    blurb: 'Restoring storage in reservoirs and dams lost to siltation and debris.',
+    blurb: 'Restoring storage capacity in reservoirs and other inland water bodies.',
     detail:
       'Reservoir and dam environments lose capacity to sediment build up, siltation and debris. We restore storage with inland dredging spreads and sustainable sediment placement, including geotextile tube dewatering, as pioneered at Dakpathar Barrage.',
   },
@@ -359,7 +359,7 @@ export const services = [
     name: 'Trenching Works',
     img: '/img/Trenching-Works.jpg',
     blurb:
-      'Precise subsea trenches for cables, pipelines and outfalls, cut through soft sediment and rock alike.',
+      'Dredging and trenching for subsea cables, pipelines and utility installations.',
     detail:
       'Dive into the world of underwater trenching. We excavate precise trenches for subsea cables, pipelines and more using cutting edge engineering techniques, including backfill and reinstatement to specification.',
   },
@@ -367,7 +367,7 @@ export const services = [
     id: 'survey',
     name: 'Hydrographic & Bathymetric Survey',
     img: '/img/Hydrographic-and-Bathymetric-Survey.jpg',
-    blurb: 'Pre, progress and post dredge survey that turns volumes into evidence.',
+    blurb: 'Comprehensive hydrographic surveys and seabed mapping for accurate data and planning.',
     detail:
       'Our comprehensive survey services provide detailed underwater maps for safe navigation and environmental assessment. We measure depth, analyse seabed conditions and identify potential hazards.',
   },
@@ -375,7 +375,7 @@ export const services = [
     id: 'breakwater',
     name: 'Breakwater Construction',
     img: '/img/Breakwater-Construction-Services-iPAC-Automation-1-1.jpg',
-    blurb: 'Shoreline and harbour protection against wave energy and erosion.',
+    blurb: 'Marine construction solutions including breakwaters, revetments and coastal protection works.',
     detail:
       'Our Breakwater Construction and Maintenance Services are designed to protect shorelines, harbours and coastal infrastructure from the impact of waves and erosion.',
   },
@@ -383,7 +383,7 @@ export const services = [
     id: 'intake-outfall',
     name: 'Intake & Outfall Channel Dredging',
     img: '/img/intake-outfall-channel-dredging-services-india.webp',
-    blurb: 'Uninterrupted cooling and discharge flow for plants that cannot stop.',
+    blurb: 'Dredging for intake and outfall channels for power plants, industrial facilities and other marine infrastructure.',
     detail:
       'Specialised intake and outfall channel dredging for power plants, desalination facilities and industrial plants, planned around plant availability windows.',
   },
@@ -391,7 +391,7 @@ export const services = [
     id: 'shipbuilding',
     name: 'Shipbuilding & Repair',
     img: '/img/Shipbuilding.jpg',
-    blurb: 'Building, repairing and refurbishing hopper barges, tugs and dredgers.',
+    blurb: 'Building, repairing and refurbishing hopper barges, tugs and support vessels.',
     detail:
       'We build, repair and refurbish vessels of all types. Our experienced team specialises in creating customised solutions that meet your exact requirements, including the specialised backhoe dredgers in our own fleet.',
   },
