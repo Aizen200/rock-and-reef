@@ -1,3 +1,4 @@
+import { Ship, Award, Waves, Target, Eye, User } from 'lucide-react'
 import { company, stats } from '../data/site'
 
 const founders = [
@@ -10,7 +11,7 @@ const founders = [
   {
     name: 'Mr. Parminder Singh Dharni',
     role: 'Director',
-    img: null,
+    img: '/img/parminder.png',
     bio: 'He is well known in the field of dredging and has executed many challenging projects. One of them being, capital dredging for the construction of the deepest berth at the Mundra port.',
   },
   {
@@ -28,9 +29,9 @@ const founders = [
 ]
 
 const aboutStats = [
-  { icon: '🚢', value: '100+', label: 'Projects Finished Successfully' },
-  { icon: '⏳', value: '25+', label: 'Years of Experience with Pride' },
-  { icon: '📊', value: '25 Million+', label: 'Cubic Meters Dredged' },
+  { icon: <Ship size={32} strokeWidth={1.5} color="var(--amber)" />, value: '100+', label: 'Projects Finished Successfully' },
+  { icon: <Award size={32} strokeWidth={1.5} color="var(--amber)" />, value: '25+', label: 'Years of Experience with Pride' },
+  { icon: <Waves size={32} strokeWidth={1.5} color="var(--amber)" />, value: '25 Million+', label: 'Cubic Meters Dredged' },
 ]
 
 export default function AboutPage() {
@@ -76,11 +77,7 @@ export default function AboutPage() {
           <div className="abp-intro-right">
             <div className="abp-mv-block">
               <div className="abp-mv-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
-                  <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
-                  <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
-                </svg>
+                <Target size={28} strokeWidth={1.8} color="var(--amber)" />
               </div>
               <div>
                 <h3 className="abp-mv-title">Our Mission</h3>
@@ -96,10 +93,7 @@ export default function AboutPage() {
 
             <div className="abp-mv-block">
               <div className="abp-mv-icon" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
+                <Eye size={28} strokeWidth={1.8} color="var(--amber)" />
               </div>
               <div>
                 <h3 className="abp-mv-title">Our Vision</h3>
@@ -151,10 +145,7 @@ export default function AboutPage() {
                     <img src={f.img} alt={f.name} loading="lazy" />
                   ) : (
                     <div className="abp-founder-placeholder">
-                      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                        <circle cx="12" cy="7" r="4"/>
-                      </svg>
+                      <User size={36} strokeWidth={1} color="var(--amber)" />
                     </div>
                   )}
                 </div>
