@@ -17,6 +17,7 @@ import ServiceDetailPage from './components/ServiceDetailPage'
 import ProjectPage from './components/ProjectPage'
 import ProjectsPage from './components/ProjectsPage'
 import FleetPage from './components/FleetPage'
+import AboutPage from './components/AboutPage'
 import { useRoute, navigate } from './router'
 
 export default function App() {
@@ -31,6 +32,17 @@ export default function App() {
     if (projectId) navigate(`/projects/${projectId}`)
     else navigate(`/services/${serviceId}`)
   }, [])
+
+  if (route === '/about') {
+    return (
+      <>
+        <Header active="about" solid />
+        <AboutPage />
+        <Footer />
+        <WhatsApp />
+      </>
+    )
+  }
 
   if (route === '/projects') {
     return (
