@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
+import { MapPin } from 'lucide-react'
 import { projects, services, fleet, company } from '../data/site'
 import { navigate } from '../router'
 
 /**
- * Standalone page for one project, reached from the project tiles on the home
- * page at /projects/:id.  Redesigned with a sticky left sidebar (image + CTA)
- * and scrollable right-side content sections.
+ * Standalone page for one project, matching the initial design reference images.
  */
 export default function ProjectPage({ id }) {
   const project = projects.find((p) => p.id === id)
@@ -26,258 +25,297 @@ export default function ProjectPage({ id }) {
   const related = projects.filter((o) => o.id !== p.id).slice(0, 3)
 
   return (
-    <main className="rn pp-v2">
+    <main className="rn">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema(p)) }}
       />
 
-      {/* ── Top bar: breadcrumb + back link ── */}
-      <div className="pp2-topbar">
-        <div className="wrap pp2-topbar-inner">
-          <p className="crumb">
-            <Link to="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <Link to="/" hash="projects">Projects</Link>
-            <span aria-hidden="true">/</span> {p.place.split(',')[0]}
-          </p>
-          <Link to="/" hash="projects" className="pp2-back">
-            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
-              <path d="M16 5H2M6 1L2 5l4 4" stroke="currentColor" strokeWidth="1.6" />
-            </svg>
-            All Projects
-          </Link>
-        </div>
-      </div>
+      {/* ── 1. Sand Hero Section ── */}
+      <section className="pp-hero-sand">
+        <div className="wrap pp-hero-grid">
+          <div className="pp-hero-copy">
+            <p className="pp-crumb">
+              <Link to="/">Home</Link>
+              <span aria-hidden="true">/</span>
+              <Link to="/" hash="projects">Projects</Link>
+              <span aria-hidden="true">/</span>
+              <span>{p.place.split(',')[0]}</span>
+            </p>
 
-      {/* ── Two-column layout ── */}
-      <div className="wrap pp2-body">
-        {/* LEFT: sticky sidebar */}
-        <aside className="pp2-sidebar">
-          <div className="pp2-sidebar-inner">
-            <figure className="pp2-img">
-              <img src={p.img} alt={p.title} width="1600" height="900" decoding="async" />
-            </figure>
+            <p className="pp-kicker">
+              {svc[0] && <span>{svc[0].name.toUpperCase()}</span>}
+              {svc[0] && p.year && <span> · </span>}
+              {p.year && <span>{p.year}</span>}
+            </p>
 
-            <div className="pp2-cta-card">
-              <p className="pp2-cta-label">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M8 1l2.1 4.2L15 6l-3.5 3.4.8 4.6L8 11.5 3.7 14l.8-4.6L1 6l4.9-.8L8 1z" stroke="currentColor" strokeWidth="1.2" />
-                </svg>
-                Marine Engineering Specialists
-              </p>
-              <h3 className="pp2-cta-heading">Discuss a similar project</h3>
-              <p className="pp2-cta-sub">Depth · Deadline · Geology · Traffic constraints</p>
-              <Link to="/" hash="contact" className="btn btn-primary pp2-cta-btn">
-                Contact Us
+            <h1 className="pp-title">{p.title}</h1>
+            <p className="pp-lede">{p.blurb}</p>
+
+            <p className="pp-place">
+              <MapPin size={16} />
+              <span>{p.place}</span>
+            </p>
+
+            <div className="pp-hero-actions">
+              <Link to="/" hash="contact" className="pp-btn-cyan">
+                DISCUSS A SIMILAR SCOPE
+              </Link>
+              <Link to="/" hash="map" className="pp-link-map">
+                See it on the map
               </Link>
             </div>
           </div>
-        </aside>
 
-        {/* RIGHT: scrollable content */}
-        <div className="pp2-content">
-          {/* Title block */}
-          <div className="pp2-header">
-            <p className="pp2-kicker">
-              {svc[0] && <span>{svc[0].name}</span>}
-              {p.year && <span>{p.year}</span>}
-            </p>
-            <h1 className="pp2-title">{p.title}</h1>
-            <p className="pp2-place">
-              <svg width="14" height="18" viewBox="0 0 14 18" fill="none" aria-hidden="true">
-                <path d="M7 17s6-5.2 6-10A6 6 0 001 7c0 4.8 6 10 6 10z" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="7" cy="7" r="2" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-              {p.place}
-            </p>
-          </div>
-
-          {/* Project specifications card */}
-          <div className="pp2-card">
-            <h3 className="pp2-card-title">Project specifications</h3>
-            <div className="pp2-spec-grid">
-              <div className="pp2-spec-item">
-                <span className="pp2-spec-label">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.3"/><path d="M4 7h6M7 4v6" stroke="currentColor" strokeWidth="1.3"/></svg>
-                  Client
-                </span>
-                <span className="pp2-spec-value">{p.client}</span>
-              </div>
-              <div className="pp2-spec-item">
-                <span className="pp2-spec-label">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.3"/><path d="M7 3v4l3 2" stroke="currentColor" strokeWidth="1.3"/></svg>
-                  Year
-                </span>
-                <span className="pp2-spec-value">{p.year || '—'}</span>
-              </div>
-              {p.metrics.map((m) => (
-                <div className="pp2-spec-item" key={m.k}>
-                  <span className="pp2-spec-label">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 13V5l4-4 4 4v8" stroke="currentColor" strokeWidth="1.3"/><rect x="9" y="7" width="4" height="6" stroke="currentColor" strokeWidth="1.3"/></svg>
-                    {m.v}
-                  </span>
-                  <span className="pp2-spec-value">{m.k}</span>
-                </div>
-              ))}
-            </div>
-            {svc.length > 0 && (
-              <div className="pp2-spec-item pp2-spec-full">
-                <span className="pp2-spec-label">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7a5 5 0 0110 0" stroke="currentColor" strokeWidth="1.3"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg>
-                  {svc.length > 1 ? 'Services' : 'Service'}
-                </span>
-                <span className="pp2-spec-value pp2-links">
-                  {svc.map((s, i) => (
-                    <span key={s.id}>
-                      {i > 0 && ' · '}
-                      <Link to={`/services/${s.id}`}>{s.name}</Link>
-                    </span>
-                  ))}
-                </span>
+          <figure className="pp-hero-fig">
+            <img src={p.img} alt={p.title} width="1600" height="900" decoding="async" />
+            {p.metrics?.[0] && (
+              <div className="pp-hero-badge">
+                <span className="pp-hero-badge-num">{p.metrics[0].k}</span>
+                <span className="pp-hero-badge-label">{p.metrics[0].v.toUpperCase()}</span>
               </div>
             )}
+          </figure>
+        </div>
+      </section>
+
+      {/* ── 2. What We Delivered ── */}
+      <section className="rn-intro">
+        <div className="wrap">
+          <div className="rn-intro-grid">
+            <h2 className="rn-h2">
+              WHAT WE<br />DELIVERED
+            </h2>
+            <div className="rn-intro-copy">
+              <p className="lead">{p.summary}</p>
+              <Link to="/" hash="map" className="pp-link-map" style={{ marginTop: 12 }}>
+                See it on the map
+              </Link>
+            </div>
           </div>
 
-          {/* Key highlights: metrics as pill tags */}
-          {p.detail?.facts && (
-            <div className="pp2-card">
-              <h3 className="pp2-card-title">Key highlights</h3>
-              <div className="pp2-pills">
-                {p.detail.facts.map((f) => (
-                  <span className="pp2-pill" key={f.k}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                      <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2"/>
-                      <path d="M5 7l2 2 3-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <b>{f.k}:</b> {f.v}
+          {/* Full Width Specification Table */}
+          <dl className="rn-spec" style={{ marginTop: 44 }}>
+            <div className="rn-spec-row">
+              <dt>CLIENT</dt>
+              <dd>{p.client}</dd>
+            </div>
+            <div className="rn-spec-row">
+              <dt>LOCATION</dt>
+              <dd>{p.place}</dd>
+            </div>
+            {p.year && (
+              <div className="rn-spec-row">
+                <dt>YEAR</dt>
+                <dd>{p.year}</dd>
+              </div>
+            )}
+            {p.detail?.facts?.map((f) => (
+              <div className="rn-spec-row" key={f.k}>
+                <dt>{f.k.toUpperCase()}</dt>
+                <dd>{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* ── 3. Long-form Case Study Sections (Overview, Location, Scope, Methodology) ── */}
+      {p.detail && <CaseStudy d={p.detail} />}
+
+      {/* ── 4. Fleet on this Project ── */}
+      <section className="rn-section">
+        <div className="wrap">
+          <h2 className="rn-h2">FLEET ON THIS PROJECT</h2>
+          <ul className="pp-fleet">
+            {vessels.map((v) => (
+              <li key={v.id}>
+                <Link to={`/fleet/${v.id}`} className="pp-vessel">
+                  <span className="pp-vessel-shape">
+                    <img src={v.img} alt="" loading="lazy" decoding="async" />
                   </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* About / Overview */}
-          {p.detail?.overview && (
-            <div className="pp2-card">
-              <h3 className="pp2-card-title">
-                About <span className="pp2-title-accent">{p.title.split(',')[0]}</span>
-              </h3>
-              {p.detail.overview.map((t) => (
-                <p className="pp2-text" key={t}>{t}</p>
-              ))}
-            </div>
-          )}
-
-          {/* Location */}
-          {p.detail?.location && (
-            <div className="pp2-card">
-              <h3 className="pp2-card-title">Location & connectivity</h3>
-              <p className="pp2-text">{p.detail.location.text}</p>
-              <div className="pp2-pills">
-                {p.detail.location.facts.map((f) => (
-                  <span className="pp2-pill" key={f.k}>
-                    {f.k}: <b>{f.v}</b>
+                  <span className="pp-vessel-body">
+                    <b>{v.name}</b>
+                    <small>{v.role}</small>
                   </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Scope of work */}
-          {p.detail?.scope && (
-            <div className="pp2-card">
-              <h3 className="pp2-card-title">Scope of work</h3>
-              <p className="pp2-text">{p.detail.scope.intro}</p>
-              <dl className="pp2-scope-table">
-                {p.detail.scope.table.map((f) => (
-                  <div key={f.k}>
-                    <dt>{f.k}</dt>
-                    <dd>{f.v}</dd>
-                  </div>
-                ))}
-              </dl>
-              <ul className="pp2-scope-list">
-                {p.detail.scope.items.map((t) => (
-                  <li key={t}>{t}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Methodology */}
-          {p.detail?.method && (
-            <div className="pp2-card">
-              <h3 className="pp2-card-title">Methodology & execution</h3>
-              <div className="pp2-method-grid">
-                {p.detail.method.map((m, i) => (
-                  <article className="pp2-method-item" key={m.title}>
-                    <span className="pp2-method-num">{String(i + 1).padStart(2, '0')}</span>
-                    <h4>{m.title}</h4>
-                    <p>{m.text}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Challenges */}
-          {p.detail?.challenges && (
-            <div className="pp2-card">
-              <h3 className="pp2-card-title">Key challenges</h3>
-              <div className="pp2-challenges">
-                {p.detail.challenges.map((c, i) => (
-                  <article className="pp2-challenge" key={c.title}>
-                    <div className="pp2-challenge-top">
-                      <span className="pp2-method-num">{String(i + 1).padStart(2, '0')}</span>
-                      <h4>{c.title}</h4>
-                    </div>
-                    <p className="pp2-challenge-problem">{c.problem}</p>
-                    <div className="pp2-challenge-answer">
-                      <span className="pp2-challenge-kicker">How we handled it</span>
-                      <p>{c.answer}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Fleet on this project — Minimalist Table */}
-          <div className="pp2-card" style={{ padding: '24px 32px' }}>
-            <h3 className="pp2-card-title">Fleet on this project</h3>
-            <div className="pp2-fleet-table">
-              {vessels.map((v) => (
-                <Link to={`/fleet/${v.id}`} className="pp2-fleet-row" key={v.id}>
-                  <div className="pp2-fleet-cell name">{v.name}</div>
-                  <div className="pp2-fleet-cell role">{v.role}</div>
-                  <div className="pp2-fleet-cell arrow" aria-hidden="true">→</div>
                 </Link>
-              ))}
-            </div>
-            <Link to="/" hash="fleet" className="rn-link sm" style={{ marginTop: 24 }}>
-              View full fleet
+              </li>
+            ))}
+          </ul>
+          <Link to="/" hash="fleet" className="rn-link sm" style={{ marginTop: 28 }}>
+            The full fleet
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 5. Other Projects ── */}
+      <section className="rn-section rn-projects">
+        <div className="wrap">
+          <div className="proj-head">
+            <h2 className="rn-h2">OTHER PROJECTS</h2>
+            <Link to="/" hash="projects" className="rn-link sm">
+              All projects
             </Link>
           </div>
-          {/* Banner connecting to All Projects */}
-          <div className="pp2-banner">
-            <div className="pp2-banner-text">
-              <span className="pp2-banner-kicker">PROJECT PORTFOLIO</span>
-              <h3 className="pp2-card-title">Explore more dredging projects?</h3>
-              <p className="pp2-text">
-                Browse our complete list of past and ongoing marine engineering projects across India.
-              </p>
-            </div>
-            <Link to="/" hash="projects" className="btn btn-primary pp2-banner-btn">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style={{ marginRight: 8, verticalAlign: '-3px' }}>
-                <path d="M2 3h4v4H2V3zm6 0h6v2H8V3zm0 4h6v2H8V7zm0 4h6v2H8v-2zM2 9h4v4H2V9z" fill="currentColor"/>
-              </svg>
-              View All Projects
-            </Link>
+          <div className={`rn-proj-grid n${Math.min(related.length, 4)}`}>
+            {related.map((o) => (
+              <article className="proj" key={o.id}>
+                <Link to={`/projects/${o.id}`} className="proj-tile pp-tile">
+                  <img className="proj-img" src={o.img} alt="" loading="lazy" decoding="async" />
+                  <span className="proj-face">
+                    <span className="proj-rule" aria-hidden="true" />
+                    <span className="proj-name">{o.title}</span>
+                  </span>
+                  <span className="proj-reveal">
+                    <span className="proj-facts">
+                      <span className="proj-purpose">
+                        <b>Purpose:</b>
+                        <span>{o.blurb}</span>
+                      </span>
+                      <span className="proj-row"><b>Location:</b><span>{o.place}</span></span>
+                      <span className="proj-row"><b>Client:</b><span>{o.client}</span></span>
+                    </span>
+                  </span>
+                </Link>
+              </article>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ── 6. Bottom CTA ── */}
+      <section className="rn-cta">
+        <div className="wrap">
+          <h2>Tell us about your seabed</h2>
+          <p>
+            Depth, deadline, geology, traffic constraints: send what you have and we will come back
+            with a method and an indicative programme.
+          </p>
+          <div className="rn-cta-links">
+            <Link to="/" hash="contact" className="rn-link">
+              Discuss a similar scope
+            </Link>
+            <a className="rn-link" href={company.phoneHref}>
+              Call {company.phone}
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
+  )
+}
+
+function CaseStudy({ d }) {
+  return (
+    <>
+      {d.overview && (
+        <section className="rn-section pp-cs">
+          <div className="wrap rn-intro-grid">
+            <h2 className="rn-h2">
+              PROJECT<br />OVERVIEW
+            </h2>
+            <div className="rn-intro-copy">
+              {d.overview.map((t) => (
+                <p key={t}>{t}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {d.location && (
+        <section className="rn-section pp-cs">
+          <div className="wrap rn-intro-grid">
+            <h2 className="rn-h2">LOCATION</h2>
+            <div className="rn-intro-copy">
+              <p>{d.location.text}</p>
+              {d.location.facts && (
+                <dl className="pp-kv">
+                  {d.location.facts.map((f) => (
+                    <div key={f.k}>
+                      <dt>{f.k}</dt>
+                      <dd>{f.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {d.scope && (
+        <section className="rn-section pp-cs">
+          <div className="wrap rn-intro-grid">
+            <h2 className="rn-h2">
+              SCOPE OF<br />WORK
+            </h2>
+            <div className="rn-intro-copy">
+              <p>{d.scope.intro}</p>
+              {d.scope.table && (
+                <dl className="pp-kv">
+                  {d.scope.table.map((f) => (
+                    <div key={f.k}>
+                      <dt>{f.k}</dt>
+                      <dd>{f.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              {d.scope.items && (
+                <ul className="pp-list">
+                  {d.scope.items.map((t) => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {d.method && (
+        <section className="rn-section rn-method">
+          <div className="wrap">
+            <h2 className="rn-h2">METHODOLOGY AND EXECUTION</h2>
+            <div className="rn-method-grid">
+              {d.method.map((m, i) => (
+                <article className="rn-method-card" key={m.title}>
+                  <div className="rn-method-card-top">
+                    <span className="rn-n">{String(i + 1).padStart(2, '0')}</span>
+                    <h3>{m.title}</h3>
+                  </div>
+                  <p className="rn-method-problem">{m.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {d.challenges && (
+        <section className="rn-section rn-method">
+          <div className="wrap">
+            <h2 className="rn-h2">KEY CHALLENGES AND HOW THEY WERE MANAGED</h2>
+            <div className="rn-method-grid n3">
+              {d.challenges.map((c, i) => (
+                <article className="rn-method-card" key={c.title}>
+                  <div className="rn-method-card-top">
+                    <span className="rn-n">{String(i + 1).padStart(2, '0')}</span>
+                    <h3>{c.title}</h3>
+                  </div>
+                  <p className="rn-method-problem">{c.problem}</p>
+                  <div className="rn-method-answer">
+                    <span className="rn-method-kicker">How we handled it</span>
+                    <p className="rn-method-problem">{c.answer}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   )
 }
 

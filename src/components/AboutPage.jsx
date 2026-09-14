@@ -1,182 +1,253 @@
-import { Ship, Award, Waves, Target, Eye, User } from 'lucide-react'
-import { company, stats } from '../data/site'
+import { Ship, Users, Box, Target, Waves, Phone, ArrowRight, Anchor, ShieldCheck, Compass, Activity } from 'lucide-react'
+import { company } from '../data/site'
 
 const founders = [
   {
-    name: 'Mr. Harsharan Singh Dharni',
-    role: 'Managing Director',
+    name: 'MR. HARPREMAN S. SINGH CHAWLA',
+    role: 'MANAGING DIRECTOR',
     img: '/img/Harsharan-Singh-Dharni.jpg',
-    bio: 'He is a seasoned professional in the area of dredging. He brings with him more than 25 years of experience in this field. He has executed several projects and has a strong network in the dredging industry. His achievements include the development of specialized equipment like the Backhoe dredger for this industry in India.',
+    bio: 'A seasoned maritime professional with over two decades of experience in dredging and marine infrastructure. He leads Rock and Reef with a clear vision for operational excellence, sustainable growth and a stronger, more connected India.',
   },
   {
-    name: 'Mr. Parminder Singh Dharni',
-    role: 'Director',
+    name: 'MR. PARMINDER SINGH CHAWLA',
+    role: 'DIRECTOR',
     img: '/img/parminder.png',
-    bio: 'He is well known in the field of dredging and has executed many challenging projects. One of them being, capital dredging for the construction of the deepest berth at the Mundra port.',
+    bio: 'Brings deep technical expertise and hands-on experience in project execution and marine operations. He plays a key role in driving innovation, efficiency and the company\'s commitment to delivering high-quality solutions.',
   },
   {
-    name: 'Mr. Manish Shah',
-    role: 'Director',
+    name: 'MR. PUNEET DHIMAN',
+    role: 'DIRECTOR',
     img: '/img/Manish-Shaha.png',
-    bio: 'He has an extremely strong vendor network. His experience in the industry is invaluable for the company to find the right spares at the right time.',
+    bio: 'A results-driven leader with a strong focus on strategic growth, client relationships and operational excellence. He works closely with teams to deliver value and build long-term partnerships.',
   },
   {
-    name: 'Mr. Gurudayal Singh Dhanotra',
-    role: 'Director',
+    name: 'MR. GURSHARAN S. SINGH CHAWLA (BUNTY)',
+    role: 'DIRECTOR',
     img: '/img/Mr.-Gurudayal-Singh-Dhanotra.jpg',
-    bio: 'He is in the field of shipbuilding for the past 30 years and has executed several projects from building of hopper barges, tugs, dredgers to other ancillary dredging equipment. An experienced and seasoned specialist in his field.',
+    bio: 'Brings a rich legacy of industry knowledge and a deep commitment to safety, people and performance. His guidance continues to strengthen Rock and Reef\'s values and long-term vision.',
   },
-]
-
-const aboutStats = [
-  { icon: <Ship size={32} strokeWidth={1.5} color="var(--amber)" />, value: '100+', label: 'Projects Finished Successfully' },
-  { icon: <Award size={32} strokeWidth={1.5} color="var(--amber)" />, value: '25+', label: 'Years of Experience with Pride' },
-  { icon: <Waves size={32} strokeWidth={1.5} color="var(--amber)" />, value: '25 Million+', label: 'Cubic Meters Dredged' },
 ]
 
 export default function AboutPage() {
   return (
-    <main className="abp page">
-      {/* ── Hero ── */}
-      <section className="abp-hero">
-        <div className="abp-hero-bg">
-          <img src="/img/Banner-Image.jpg" alt="Rock and Reef dredger" />
-          <div className="abp-hero-overlay" />
-          <div className="abp-hero-wave" aria-hidden="true" />
+    <main className="ab-exact page">
+      {/* ── 1. Hero Section ── */}
+      <section className="ab-exact-hero">
+        <div className="ab-exact-hero-bg">
+          <img src="/img/Banner-Image.jpg" alt="Rock and Reef Dredger" />
+          <div className="ab-exact-hero-scrim" />
         </div>
-        <div className="wrap abp-hero-inner">
-          <h1 className="abp-hero-title">About Us</h1>
-        </div>
-        <div className="abp-scroll-indicator" aria-hidden="true">
-          <span className="abp-scroll-line" />
-          <span className="abp-scroll-label">Scroll</span>
-        </div>
-      </section>
 
-      {/* ── About + Mission / Vision ── */}
-      <section className="abp-intro">
-        <div className="wrap abp-intro-grid">
-          {/* Left: Who we are */}
-          <div className="abp-intro-left">
-            <span className="abp-kicker">About Us</span>
-            <h2 className="abp-section-title">Rock And Reef</h2>
-            <p className="abp-body-text">
-              Rock And Reef Dredging Pvt. Ltd. is a leading dredging and shipbuilding company that
-              has been at the forefront of capital dredging in India. With a strong focus on quality,
-              reliability, and client satisfaction, we have successfully executed over 100 dredging
-              works, setting new benchmarks in the industry.
+        <div className="wrap ab-exact-hero-grid">
+          <div className="ab-exact-hero-copy">
+            <span className="ab-exact-kicker">— ABOUT US</span>
+            <h1 className="ab-exact-hero-title">
+              ENABLING INDIA’S MARITIME GROWTH
+            </h1>
+            <p className="ab-exact-hero-subtitle">
+              Through wider channels and a stronger tomorrow.
             </p>
-            <p className="abp-body-text">
-              Our commitment to excellence and the completion of every project we undertake sets us
-              apart from others in the Indian dredging industry.
+            <p className="ab-exact-hero-lede">
+              Rock and Reef Dredging & Marine Works is a leading dredging and marine infrastructure company in India,
+              delivering reliable, innovative and sustainable solutions that support India’s growing maritime economy
+              and coastal development.
             </p>
-            <a href="/services" className="btn btn-primary abp-intro-btn">Our Expertise</a>
           </div>
 
-          {/* Right: Mission + Vision */}
-          <div className="abp-intro-right">
-            <div className="abp-mv-block">
-              <div className="abp-mv-icon" aria-hidden="true">
-                <Target size={28} strokeWidth={1.8} color="var(--amber)" />
+          <div className="ab-exact-hero-slogan">
+            <span>DREDGE</span>
+            <span>DEVELOP</span>
+            <span>STRENGTHEN</span>
+            <span>FOR INDIA</span>
+          </div>
+        </div>
+
+        {/* Hero Bottom Stats Bar */}
+        <div className="ab-exact-stats-bar">
+          <div className="wrap ab-exact-stats-grid">
+            <div className="ab-exact-stat-item">
+              <div className="ab-exact-stat-icon">
+                <Ship size={28} strokeWidth={1.5} />
               </div>
-              <div>
-                <h3 className="abp-mv-title">Our Mission</h3>
-                <p className="abp-body-text">
-                  To be the premier provider of innovative dredging solutions and shipbuilding services
-                  in India, delivering projects with exceptional quality, safety, and efficiency. We
-                  strive to exceed client expectations, contribute to the growth and sustainability of
-                  the marine industry, and leave a positive impact on the environment and communities
-                  we work in.
-                </p>
+              <div className="ab-exact-stat-body">
+                <span className="ab-exact-stat-num">100+</span>
+                <span className="ab-exact-stat-label">PROJECTS COMPLETED ACROSS INDIA</span>
               </div>
             </div>
 
-            <div className="abp-mv-block">
-              <div className="abp-mv-icon" aria-hidden="true">
-                <Eye size={28} strokeWidth={1.8} color="var(--amber)" />
+            <div className="ab-exact-stat-item">
+              <div className="ab-exact-stat-icon">
+                <Users size={28} strokeWidth={1.5} />
               </div>
-              <div>
-                <h3 className="abp-mv-title">Our Vision</h3>
-                <p className="abp-body-text">
-                  To be recognized as pioneers in capital dredging, shipbuilding, and marine
-                  infrastructure development in India. We aim to continuously push the boundaries of
-                  excellence, embracing technological advancements, sustainable practices, and industry
-                  best practices. Our vision is to inspire and lead the industry, transforming India's
-                  waterways and coastal regions for economic growth, environmental preservation, and
-                  improved connectivity.
-                </p>
+              <div className="ab-exact-stat-body">
+                <span className="ab-exact-stat-num">25+</span>
+                <span className="ab-exact-stat-label">YEARS OF COMBINED EXPERIENCE</span>
+              </div>
+            </div>
+
+            <div className="ab-exact-stat-item">
+              <div className="ab-exact-stat-icon">
+                <Box size={28} strokeWidth={1.5} />
+              </div>
+              <div className="ab-exact-stat-body">
+                <span className="ab-exact-stat-num">25 MILLION+</span>
+                <span className="ab-exact-stat-label">CUBIC METERS DREDGED</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Stats band ── */}
-      <section className="abp-stats">
-        <div className="abp-stats-bg">
-          <img src="/img/dreging.jpg" alt="" aria-hidden="true" />
-          <div className="abp-stats-overlay" />
-          <div className="abp-stats-wave" aria-hidden="true" />
-        </div>
-        <div className="wrap abp-stats-inner">
-          {aboutStats.map((s) => (
-            <div className="abp-stat" key={s.value}>
-              <div className="abp-stat-icon" aria-hidden="true">{s.icon}</div>
-              <span className="abp-stat-value">{s.value}</span>
-              <span className="abp-stat-label">{s.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Founders ── */}
-      <section className="abp-founders">
-        <div className="wrap">
-          <div className="abp-founders-head">
-            <span className="abp-kicker abp-kicker-centered">The Team</span>
-            <h2 className="abp-section-title abp-centered">Our Founders</h2>
+      {/* ── 2. Who We Are Section ── */}
+      <section className="ab-exact-who">
+        <div className="wrap ab-exact-who-grid">
+          <div className="ab-exact-who-copy">
+            <span className="ab-exact-kicker dark">— WHO WE ARE</span>
+            <h2 className="ab-exact-who-title">
+              A TRUSTED PARTNER IN BUILDING INDIA’S COASTAL FUTURE
+            </h2>
+            <p className="ab-exact-who-p">
+              Rock and Reef Dredging & Marine Works is a leading dredging and marine works company in India,
+              with a strong track record in port development, channel maintenance, land reclamation and coastal
+              protection. We combine technical expertise, modern equipment and a commitment to safety and
+              sustainability to deliver projects that create lasting value.
+            </p>
+            <p className="ab-exact-who-p">
+              Our work supports the nation’s maritime growth, enabling safer navigation, stronger coastal
+              infrastructure and thriving ports for a more connected and prosperous India.
+            </p>
+            <a href="/services" className="ab-exact-btn-dark">
+              GET TO KNOW US <ArrowRight size={16} />
+            </a>
           </div>
 
-          <div className="abp-founders-grid">
-            {founders.map((f) => (
-              <article className="abp-founder-card" key={f.name}>
-                <div className="abp-founder-img-wrap">
-                  {f.img ? (
-                    <img src={f.img} alt={f.name} loading="lazy" />
-                  ) : (
-                    <div className="abp-founder-placeholder">
-                      <User size={36} strokeWidth={1} color="var(--amber)" />
-                    </div>
-                  )}
+          <div className="ab-exact-who-media">
+            <div className="ab-exact-who-img-wrap">
+              <img src="/img/dreging.jpg" alt="Dredging operation" />
+              <div className="ab-exact-who-overlay-bar">
+                <div className="ab-exact-who-feature">
+                  <Anchor size={20} />
+                  <span>PORT DEVELOPMENT</span>
                 </div>
-                <h3 className="abp-founder-name">{f.name}</h3>
-                <span className="abp-founder-role">{f.role}</span>
-                <p className="abp-founder-bio">{f.bio}</p>
-              </article>
+                <div className="ab-exact-who-feature">
+                  <Waves size={20} />
+                  <span>CHANNEL MAINTENANCE</span>
+                </div>
+                <div className="ab-exact-who-feature">
+                  <Compass size={20} />
+                  <span>ENVIRONMENTAL RESTORATION</span>
+                </div>
+                <div className="ab-exact-who-feature">
+                  <ShieldCheck size={20} />
+                  <span>COASTAL PROTECTION</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. Our Mission & Vision Section ── */}
+      <section className="ab-exact-mv">
+        <div className="wrap">
+          <div className="ab-exact-mv-head">
+            <span className="ab-exact-kicker-center">— OUR MISSION & VISION —</span>
+          </div>
+
+          <div className="ab-exact-mv-grid">
+            {/* Mission Card */}
+            <div className="ab-exact-mv-card">
+              <div className="ab-exact-mv-badge">
+                <Target size={28} strokeWidth={1.8} />
+              </div>
+              <div className="ab-exact-mv-body">
+                <h3>OUR MISSION</h3>
+                <p>
+                  To deliver reliable, safe and efficient dredging and marine infrastructure solutions for India,
+                  creating lasting value through technical excellence, responsible practices and a commitment to the
+                  people and communities we serve.
+                </p>
+              </div>
+            </div>
+
+            {/* Vision Card */}
+            <div className="ab-exact-mv-card">
+              <div className="ab-exact-mv-badge">
+                <Waves size={28} strokeWidth={1.8} />
+              </div>
+              <div className="ab-exact-mv-body">
+                <h3>OUR VISION</h3>
+                <p>
+                  To be India’s leading partner in maritime development, driving progress through innovation,
+                  sustainability and long-term impact, for stronger coastal economies and a more connected tomorrow.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* (OUR VALUES section skipped per user request) */}
+
+      {/* ── 4. Our Founders Section ── */}
+      <section className="ab-exact-founders">
+        <div className="wrap">
+          <div className="ab-exact-founders-head">
+            <span className="ab-exact-kicker-center">— OUR FOUNDERS —</span>
+            <p className="ab-exact-founders-sub">
+              Experienced leadership. A shared vision for India’s maritime growth.
+            </p>
+          </div>
+
+          <div className="ab-exact-founders-grid">
+            {founders.map((f) => (
+              <div className="ab-exact-founder-card" key={f.name}>
+                <div className="ab-exact-founder-photo">
+                  <img src={f.img} alt={f.name} loading="lazy" />
+                </div>
+                <div className="ab-exact-founder-info">
+                  <h3 className="ab-exact-founder-name">{f.name}</h3>
+                  <span className="ab-exact-founder-role">{f.role}</span>
+                  <p className="ab-exact-founder-bio">{f.bio}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="abp-cta">
-        <div className="abp-cta-bg">
-          <img src="/img/Banner-Image.jpg" alt="" aria-hidden="true" />
-          <div className="abp-cta-overlay" />
-          <div className="abp-cta-wave" aria-hidden="true" />
+      {/* ── 5. Let's Work Together CTA ── */}
+      <section className="ab-exact-cta">
+        <div className="ab-exact-cta-bg">
+          <img src="/img/deep-dredging-service.png" alt="Dredging pipe background" />
+          <div className="ab-exact-cta-scrim" />
         </div>
-        <div className="wrap abp-cta-inner">
-          <span className="abp-kicker abp-kicker-light">Start a conversation</span>
-          <h2 className="abp-cta-title">Tell us about your seabed</h2>
-          <p className="abp-cta-text">
-            Depth, deadline, geology, traffic constraints — send what you have and we'll come back
-            with a method and an indicative programme.
-          </p>
-          <div className="abp-cta-actions">
-            <a href="/#contact" className="btn btn-primary">Discuss a scope</a>
-            <a href={company.phoneHref} className="abp-cta-phone">
-              {company.phone}
-            </a>
+
+        <div className="wrap ab-exact-cta-grid">
+          <div className="ab-exact-cta-copy">
+            <span className="ab-exact-kicker">— LET’S WORK TOGETHER</span>
+            <h2 className="ab-exact-cta-title">
+              LET’S BUILD A STRONGER TOMORROW
+            </h2>
+            <p className="ab-exact-cta-lede">
+              From ports to coastlines, we partner with you to deliver innovative, sustainable dredging
+              solutions for a stronger, more connected India.
+            </p>
+            <div className="ab-exact-cta-buttons">
+              <a href="/#contact" className="ab-exact-btn-cyan">
+                DISCUSS A PROJECT <ArrowRight size={16} />
+              </a>
+              <a href={company.phoneHref} className="ab-exact-btn-phone">
+                <Phone size={16} /> +91 98202 45630
+              </a>
+            </div>
+          </div>
+
+          <div className="ab-exact-cta-slogan">
+            <span>CLEANER WATERS</span>
+            <span>SAFER PORTS</span>
+            <span>STRONGER COMMUNITIES</span>
+            <span>A BRIGHTER TOMORROW</span>
           </div>
         </div>
       </section>
